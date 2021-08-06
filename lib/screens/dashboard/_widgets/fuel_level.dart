@@ -45,9 +45,9 @@ Color getColors (int level) {
   if (level == 0) {
     color = AppColors.red;
   } else if (level == 1) {
-    color = AppColors.yellow;
+    color = AppColors.orange;
   } else {
-    color = AppColors.info_icon;
+    color = AppColors.light_yellow;
   }
   return color;
 }
