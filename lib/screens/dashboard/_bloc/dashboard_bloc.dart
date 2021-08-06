@@ -392,4 +392,10 @@ class DashboardEvent with _$DashboardEvent {
   const factory DashboardEvent.openSettings({
     final List<int>? code,
   }) = _OpenSettingsDashboardEvent;
+
+  const factory DashboardEvent.discardOdometer({
+    final int? type,
+  }) = _DiscardOdometerDashboardEvent;
+
+  const factory DashboardEvent.editOdometer() = _EditOdometerDashboardEvent;
 }
