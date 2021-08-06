@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vaz_mobile/screens/dashboard/_widgets/divider.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/emergency_button.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/start_engine.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/system_alarm.dart';
