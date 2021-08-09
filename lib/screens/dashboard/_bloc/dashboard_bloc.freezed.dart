@@ -24,6 +24,10 @@ class _$DashboardStateTearOff {
     return const _LoadingDashboardState();
   }
 
+  _EditOdometerDashboardState editOdometer() {
+    return const _EditOdometerDashboardState();
+  }
+
   _DataDashboardState data(
       {double? voltage,
       double? outsideTemperature,
@@ -85,6 +89,7 @@ mixin _$DashboardState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() editOdometer,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -112,6 +117,7 @@ mixin _$DashboardState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? editOdometer,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -140,6 +146,7 @@ mixin _$DashboardState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialDashboardState value) initial,
     required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -149,6 +156,7 @@ mixin _$DashboardState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialDashboardState value)? initial,
     TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -224,6 +232,7 @@ class _$_InitialDashboardState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() editOdometer,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -254,6 +263,7 @@ class _$_InitialDashboardState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? editOdometer,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -288,6 +298,7 @@ class _$_InitialDashboardState
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialDashboardState value) initial,
     required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -300,6 +311,7 @@ class _$_InitialDashboardState
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialDashboardState value)? initial,
     TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -366,6 +378,7 @@ class _$_LoadingDashboardState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() editOdometer,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -396,6 +409,7 @@ class _$_LoadingDashboardState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? editOdometer,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -430,6 +444,7 @@ class _$_LoadingDashboardState
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialDashboardState value) initial,
     required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -442,6 +457,7 @@ class _$_LoadingDashboardState
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialDashboardState value)? initial,
     TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -456,6 +472,154 @@ class _$_LoadingDashboardState
 
 abstract class _LoadingDashboardState implements DashboardState {
   const factory _LoadingDashboardState() = _$_LoadingDashboardState;
+}
+
+/// @nodoc
+abstract class _$EditOdometerDashboardStateCopyWith<$Res> {
+  factory _$EditOdometerDashboardStateCopyWith(
+          _EditOdometerDashboardState value,
+          $Res Function(_EditOdometerDashboardState) then) =
+      __$EditOdometerDashboardStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$EditOdometerDashboardStateCopyWithImpl<$Res>
+    extends _$DashboardStateCopyWithImpl<$Res>
+    implements _$EditOdometerDashboardStateCopyWith<$Res> {
+  __$EditOdometerDashboardStateCopyWithImpl(_EditOdometerDashboardState _value,
+      $Res Function(_EditOdometerDashboardState) _then)
+      : super(_value, (v) => _then(v as _EditOdometerDashboardState));
+
+  @override
+  _EditOdometerDashboardState get _value =>
+      super._value as _EditOdometerDashboardState;
+}
+
+/// @nodoc
+
+class _$_EditOdometerDashboardState
+    with DiagnosticableTreeMixin
+    implements _EditOdometerDashboardState {
+  const _$_EditOdometerDashboardState();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DashboardState.editOdometer()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'DashboardState.editOdometer'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _EditOdometerDashboardState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() editOdometer,
+    required TResult Function(
+            double? voltage,
+            double? outsideTemperature,
+            double? temperatureInCar,
+            int? fuelLevel,
+            bool? isPowerEngine,
+            bool? isEmergencySignal,
+            List<int>? code,
+            int? turnoverEngine,
+            double? fuelConsumption,
+            bool? isOpenDoors,
+            bool? isOpenTrunk,
+            bool? isOnOffLowBeam,
+            bool? isOnOffHighBeam,
+            double? temperatureEngine,
+            int? totalValueOdometer,
+            int? partValueOdometer,
+            int? speed)
+        data,
+    required TResult Function(String? message) error,
+    required TResult Function(String? message) success,
+  }) {
+    return editOdometer();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? editOdometer,
+    TResult Function(
+            double? voltage,
+            double? outsideTemperature,
+            double? temperatureInCar,
+            int? fuelLevel,
+            bool? isPowerEngine,
+            bool? isEmergencySignal,
+            List<int>? code,
+            int? turnoverEngine,
+            double? fuelConsumption,
+            bool? isOpenDoors,
+            bool? isOpenTrunk,
+            bool? isOnOffLowBeam,
+            bool? isOnOffHighBeam,
+            double? temperatureEngine,
+            int? totalValueOdometer,
+            int? partValueOdometer,
+            int? speed)?
+        data,
+    TResult Function(String? message)? error,
+    TResult Function(String? message)? success,
+    required TResult orElse(),
+  }) {
+    if (editOdometer != null) {
+      return editOdometer();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialDashboardState value) initial,
+    required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
+    required TResult Function(_DataDashboardState value) data,
+    required TResult Function(_ErrorDashboardState value) error,
+    required TResult Function(_SuccessDashboardState value) success,
+  }) {
+    return editOdometer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialDashboardState value)? initial,
+    TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
+    TResult Function(_DataDashboardState value)? data,
+    TResult Function(_ErrorDashboardState value)? error,
+    TResult Function(_SuccessDashboardState value)? success,
+    required TResult orElse(),
+  }) {
+    if (editOdometer != null) {
+      return editOdometer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EditOdometerDashboardState implements DashboardState {
+  const factory _EditOdometerDashboardState() = _$_EditOdometerDashboardState;
 }
 
 /// @nodoc
@@ -761,6 +925,7 @@ class _$_DataDashboardState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() editOdometer,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -808,6 +973,7 @@ class _$_DataDashboardState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? editOdometer,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -859,6 +1025,7 @@ class _$_DataDashboardState
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialDashboardState value) initial,
     required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -871,6 +1038,7 @@ class _$_DataDashboardState
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialDashboardState value)? initial,
     TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -1003,6 +1171,7 @@ class _$_ErrorDashboardState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() editOdometer,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1033,6 +1202,7 @@ class _$_ErrorDashboardState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? editOdometer,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1067,6 +1237,7 @@ class _$_ErrorDashboardState
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialDashboardState value) initial,
     required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -1079,6 +1250,7 @@ class _$_ErrorDashboardState
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialDashboardState value)? initial,
     TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -1179,6 +1351,7 @@ class _$_SuccessDashboardState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
+    required TResult Function() editOdometer,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1209,6 +1382,7 @@ class _$_SuccessDashboardState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
+    TResult Function()? editOdometer,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1243,6 +1417,7 @@ class _$_SuccessDashboardState
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialDashboardState value) initial,
     required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -1255,6 +1430,7 @@ class _$_SuccessDashboardState
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialDashboardState value)? initial,
     TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -1320,6 +1496,22 @@ class _$DashboardEventTearOff {
       code: code,
     );
   }
+
+  _DiscardOdometerDashboardEvent discardOdometer({int? type}) {
+    return _DiscardOdometerDashboardEvent(
+      type: type,
+    );
+  }
+
+  _EditOdometerDashboardEvent editOdometer({String? valueOdometer}) {
+    return _EditOdometerDashboardEvent(
+      valueOdometer: valueOdometer,
+    );
+  }
+
+  _SaveValueOdometerDashboardEvent saveValueOdometer() {
+    return const _SaveValueOdometerDashboardEvent();
+  }
 }
 
 /// @nodoc
@@ -1338,6 +1530,9 @@ mixin _$DashboardEvent {
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1351,6 +1546,9 @@ mixin _$DashboardEvent {
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1368,6 +1566,11 @@ mixin _$DashboardEvent {
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1382,6 +1585,9 @@ mixin _$DashboardEvent {
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1461,6 +1667,9 @@ class _$_InitialDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return initial();
   }
@@ -1477,6 +1686,9 @@ class _$_InitialDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1500,6 +1712,11 @@ class _$_InitialDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return initial(this);
   }
@@ -1517,6 +1734,9 @@ class _$_InitialDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1588,6 +1808,9 @@ class _$_StartEngineDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return startEngine();
   }
@@ -1604,6 +1827,9 @@ class _$_StartEngineDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (startEngine != null) {
@@ -1627,6 +1853,11 @@ class _$_StartEngineDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return startEngine(this);
   }
@@ -1644,6 +1875,9 @@ class _$_StartEngineDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (startEngine != null) {
@@ -1719,6 +1953,9 @@ class _$_TurnEmergencySignalDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return turnEmergencySignal();
   }
@@ -1735,6 +1972,9 @@ class _$_TurnEmergencySignalDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (turnEmergencySignal != null) {
@@ -1758,6 +1998,11 @@ class _$_TurnEmergencySignalDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return turnEmergencySignal(this);
   }
@@ -1775,6 +2020,9 @@ class _$_TurnEmergencySignalDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (turnEmergencySignal != null) {
@@ -1847,6 +2095,9 @@ class _$_OpenWarningDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return openWarning();
   }
@@ -1863,6 +2114,9 @@ class _$_OpenWarningDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openWarning != null) {
@@ -1886,6 +2140,11 @@ class _$_OpenWarningDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return openWarning(this);
   }
@@ -1903,6 +2162,9 @@ class _$_OpenWarningDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openWarning != null) {
@@ -1974,6 +2236,9 @@ class _$_OpenDoorsDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return openDoors();
   }
@@ -1990,6 +2255,9 @@ class _$_OpenDoorsDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openDoors != null) {
@@ -2013,6 +2281,11 @@ class _$_OpenDoorsDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return openDoors(this);
   }
@@ -2030,6 +2303,9 @@ class _$_OpenDoorsDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openDoors != null) {
@@ -2101,6 +2377,9 @@ class _$_OpenTrunkDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return openTrunk();
   }
@@ -2117,6 +2396,9 @@ class _$_OpenTrunkDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openTrunk != null) {
@@ -2140,6 +2422,11 @@ class _$_OpenTrunkDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return openTrunk(this);
   }
@@ -2157,6 +2444,9 @@ class _$_OpenTrunkDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openTrunk != null) {
@@ -2232,6 +2522,9 @@ class _$_TurnOnOffHighBeamDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return turnOnOffHighBeam();
   }
@@ -2248,6 +2541,9 @@ class _$_TurnOnOffHighBeamDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (turnOnOffHighBeam != null) {
@@ -2271,6 +2567,11 @@ class _$_TurnOnOffHighBeamDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return turnOnOffHighBeam(this);
   }
@@ -2288,6 +2589,9 @@ class _$_TurnOnOffHighBeamDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (turnOnOffHighBeam != null) {
@@ -2390,6 +2694,9 @@ class _$_TurnOnOffLowBeamDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return turnOnOffLowBeam(code);
   }
@@ -2406,6 +2713,9 @@ class _$_TurnOnOffLowBeamDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (turnOnOffLowBeam != null) {
@@ -2429,6 +2739,11 @@ class _$_TurnOnOffLowBeamDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return turnOnOffLowBeam(this);
   }
@@ -2446,6 +2761,9 @@ class _$_TurnOnOffLowBeamDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (turnOnOffLowBeam != null) {
@@ -2552,6 +2870,9 @@ class _$_OpenSettingsDashboardEvent
     required TResult Function() turnOnOffHighBeam,
     required TResult Function(List<int>? code) turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
   }) {
     return openSettings(code);
   }
@@ -2568,6 +2889,9 @@ class _$_OpenSettingsDashboardEvent
     TResult Function()? turnOnOffHighBeam,
     TResult Function(List<int>? code)? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openSettings != null) {
@@ -2591,6 +2915,11 @@ class _$_OpenSettingsDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
   }) {
     return openSettings(this);
   }
@@ -2608,6 +2937,9 @@ class _$_OpenSettingsDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     required TResult orElse(),
   }) {
     if (openSettings != null) {
@@ -2625,4 +2957,504 @@ abstract class _OpenSettingsDashboardEvent implements DashboardEvent {
   @JsonKey(ignore: true)
   _$OpenSettingsDashboardEventCopyWith<_OpenSettingsDashboardEvent>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$DiscardOdometerDashboardEventCopyWith<$Res> {
+  factory _$DiscardOdometerDashboardEventCopyWith(
+          _DiscardOdometerDashboardEvent value,
+          $Res Function(_DiscardOdometerDashboardEvent) then) =
+      __$DiscardOdometerDashboardEventCopyWithImpl<$Res>;
+  $Res call({int? type});
+}
+
+/// @nodoc
+class __$DiscardOdometerDashboardEventCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res>
+    implements _$DiscardOdometerDashboardEventCopyWith<$Res> {
+  __$DiscardOdometerDashboardEventCopyWithImpl(
+      _DiscardOdometerDashboardEvent _value,
+      $Res Function(_DiscardOdometerDashboardEvent) _then)
+      : super(_value, (v) => _then(v as _DiscardOdometerDashboardEvent));
+
+  @override
+  _DiscardOdometerDashboardEvent get _value =>
+      super._value as _DiscardOdometerDashboardEvent;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+  }) {
+    return _then(_DiscardOdometerDashboardEvent(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DiscardOdometerDashboardEvent
+    with DiagnosticableTreeMixin
+    implements _DiscardOdometerDashboardEvent {
+  const _$_DiscardOdometerDashboardEvent({this.type});
+
+  @override
+  final int? type;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DashboardEvent.discardOdometer(type: $type)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DashboardEvent.discardOdometer'))
+      ..add(DiagnosticsProperty('type', type));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _DiscardOdometerDashboardEvent &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(type);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DiscardOdometerDashboardEventCopyWith<_DiscardOdometerDashboardEvent>
+      get copyWith => __$DiscardOdometerDashboardEventCopyWithImpl<
+          _DiscardOdometerDashboardEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() startEngine,
+    required TResult Function() turnEmergencySignal,
+    required TResult Function() openWarning,
+    required TResult Function() openDoors,
+    required TResult Function() openTrunk,
+    required TResult Function() turnOnOffHighBeam,
+    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
+  }) {
+    return discardOdometer(type);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? startEngine,
+    TResult Function()? turnEmergencySignal,
+    TResult Function()? openWarning,
+    TResult Function()? openDoors,
+    TResult Function()? openTrunk,
+    TResult Function()? turnOnOffHighBeam,
+    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
+    required TResult orElse(),
+  }) {
+    if (discardOdometer != null) {
+      return discardOdometer(type);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialDashboardEvent value) initial,
+    required TResult Function(_StartEngineDashboardEvent value) startEngine,
+    required TResult Function(_TurnEmergencySignalDashboardEvent value)
+        turnEmergencySignal,
+    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
+    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
+    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
+    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
+        turnOnOffHighBeam,
+    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
+        turnOnOffLowBeam,
+    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
+  }) {
+    return discardOdometer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialDashboardEvent value)? initial,
+    TResult Function(_StartEngineDashboardEvent value)? startEngine,
+    TResult Function(_TurnEmergencySignalDashboardEvent value)?
+        turnEmergencySignal,
+    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
+    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
+    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
+    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
+    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
+    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
+    required TResult orElse(),
+  }) {
+    if (discardOdometer != null) {
+      return discardOdometer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DiscardOdometerDashboardEvent implements DashboardEvent {
+  const factory _DiscardOdometerDashboardEvent({int? type}) =
+      _$_DiscardOdometerDashboardEvent;
+
+  int? get type => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$DiscardOdometerDashboardEventCopyWith<_DiscardOdometerDashboardEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$EditOdometerDashboardEventCopyWith<$Res> {
+  factory _$EditOdometerDashboardEventCopyWith(
+          _EditOdometerDashboardEvent value,
+          $Res Function(_EditOdometerDashboardEvent) then) =
+      __$EditOdometerDashboardEventCopyWithImpl<$Res>;
+  $Res call({String? valueOdometer});
+}
+
+/// @nodoc
+class __$EditOdometerDashboardEventCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res>
+    implements _$EditOdometerDashboardEventCopyWith<$Res> {
+  __$EditOdometerDashboardEventCopyWithImpl(_EditOdometerDashboardEvent _value,
+      $Res Function(_EditOdometerDashboardEvent) _then)
+      : super(_value, (v) => _then(v as _EditOdometerDashboardEvent));
+
+  @override
+  _EditOdometerDashboardEvent get _value =>
+      super._value as _EditOdometerDashboardEvent;
+
+  @override
+  $Res call({
+    Object? valueOdometer = freezed,
+  }) {
+    return _then(_EditOdometerDashboardEvent(
+      valueOdometer: valueOdometer == freezed
+          ? _value.valueOdometer
+          : valueOdometer // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_EditOdometerDashboardEvent
+    with DiagnosticableTreeMixin
+    implements _EditOdometerDashboardEvent {
+  const _$_EditOdometerDashboardEvent({this.valueOdometer});
+
+  @override
+  final String? valueOdometer;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DashboardEvent.editOdometer(valueOdometer: $valueOdometer)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DashboardEvent.editOdometer'))
+      ..add(DiagnosticsProperty('valueOdometer', valueOdometer));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _EditOdometerDashboardEvent &&
+            (identical(other.valueOdometer, valueOdometer) ||
+                const DeepCollectionEquality()
+                    .equals(other.valueOdometer, valueOdometer)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(valueOdometer);
+
+  @JsonKey(ignore: true)
+  @override
+  _$EditOdometerDashboardEventCopyWith<_EditOdometerDashboardEvent>
+      get copyWith => __$EditOdometerDashboardEventCopyWithImpl<
+          _EditOdometerDashboardEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() startEngine,
+    required TResult Function() turnEmergencySignal,
+    required TResult Function() openWarning,
+    required TResult Function() openDoors,
+    required TResult Function() openTrunk,
+    required TResult Function() turnOnOffHighBeam,
+    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
+  }) {
+    return editOdometer(valueOdometer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? startEngine,
+    TResult Function()? turnEmergencySignal,
+    TResult Function()? openWarning,
+    TResult Function()? openDoors,
+    TResult Function()? openTrunk,
+    TResult Function()? turnOnOffHighBeam,
+    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
+    required TResult orElse(),
+  }) {
+    if (editOdometer != null) {
+      return editOdometer(valueOdometer);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialDashboardEvent value) initial,
+    required TResult Function(_StartEngineDashboardEvent value) startEngine,
+    required TResult Function(_TurnEmergencySignalDashboardEvent value)
+        turnEmergencySignal,
+    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
+    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
+    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
+    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
+        turnOnOffHighBeam,
+    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
+        turnOnOffLowBeam,
+    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
+  }) {
+    return editOdometer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialDashboardEvent value)? initial,
+    TResult Function(_StartEngineDashboardEvent value)? startEngine,
+    TResult Function(_TurnEmergencySignalDashboardEvent value)?
+        turnEmergencySignal,
+    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
+    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
+    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
+    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
+    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
+    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
+    required TResult orElse(),
+  }) {
+    if (editOdometer != null) {
+      return editOdometer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EditOdometerDashboardEvent implements DashboardEvent {
+  const factory _EditOdometerDashboardEvent({String? valueOdometer}) =
+      _$_EditOdometerDashboardEvent;
+
+  String? get valueOdometer => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$EditOdometerDashboardEventCopyWith<_EditOdometerDashboardEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$SaveValueOdometerDashboardEventCopyWith<$Res> {
+  factory _$SaveValueOdometerDashboardEventCopyWith(
+          _SaveValueOdometerDashboardEvent value,
+          $Res Function(_SaveValueOdometerDashboardEvent) then) =
+      __$SaveValueOdometerDashboardEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$SaveValueOdometerDashboardEventCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res>
+    implements _$SaveValueOdometerDashboardEventCopyWith<$Res> {
+  __$SaveValueOdometerDashboardEventCopyWithImpl(
+      _SaveValueOdometerDashboardEvent _value,
+      $Res Function(_SaveValueOdometerDashboardEvent) _then)
+      : super(_value, (v) => _then(v as _SaveValueOdometerDashboardEvent));
+
+  @override
+  _SaveValueOdometerDashboardEvent get _value =>
+      super._value as _SaveValueOdometerDashboardEvent;
+}
+
+/// @nodoc
+
+class _$_SaveValueOdometerDashboardEvent
+    with DiagnosticableTreeMixin
+    implements _SaveValueOdometerDashboardEvent {
+  const _$_SaveValueOdometerDashboardEvent();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DashboardEvent.saveValueOdometer()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DashboardEvent.saveValueOdometer'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SaveValueOdometerDashboardEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() startEngine,
+    required TResult Function() turnEmergencySignal,
+    required TResult Function() openWarning,
+    required TResult Function() openDoors,
+    required TResult Function() openTrunk,
+    required TResult Function() turnOnOffHighBeam,
+    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
+  }) {
+    return saveValueOdometer();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? startEngine,
+    TResult Function()? turnEmergencySignal,
+    TResult Function()? openWarning,
+    TResult Function()? openDoors,
+    TResult Function()? openTrunk,
+    TResult Function()? turnOnOffHighBeam,
+    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
+    required TResult orElse(),
+  }) {
+    if (saveValueOdometer != null) {
+      return saveValueOdometer();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialDashboardEvent value) initial,
+    required TResult Function(_StartEngineDashboardEvent value) startEngine,
+    required TResult Function(_TurnEmergencySignalDashboardEvent value)
+        turnEmergencySignal,
+    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
+    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
+    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
+    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
+        turnOnOffHighBeam,
+    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
+        turnOnOffLowBeam,
+    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
+  }) {
+    return saveValueOdometer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialDashboardEvent value)? initial,
+    TResult Function(_StartEngineDashboardEvent value)? startEngine,
+    TResult Function(_TurnEmergencySignalDashboardEvent value)?
+        turnEmergencySignal,
+    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
+    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
+    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
+    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
+    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
+    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
+    required TResult orElse(),
+  }) {
+    if (saveValueOdometer != null) {
+      return saveValueOdometer(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SaveValueOdometerDashboardEvent implements DashboardEvent {
+  const factory _SaveValueOdometerDashboardEvent() =
+      _$_SaveValueOdometerDashboardEvent;
 }

@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:usb_serial/usb_serial.dart';
 
 part 'dashboard_bloc.freezed.dart';
 
@@ -48,7 +50,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   int partValueOdometer = 0;
   int speed = 0;
 
-  Socket? socket;
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
@@ -62,23 +63,22 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       turnOnOffHighBeam: _mapTurnOnOffHighBeamDashboardEvent,
       turnOnOffLowBeam: _mapTurnOnOffLowBeamDashboardEvent,
       openSettings: _mapOpenSettingsDashboardEvent,
+      discardOdometer: _mapDiscardOdometerDashboardEvent,
+      editOdometer: _mapEditOdometerDashboardEvent,
+      saveValueOdometer: _mapSaveValueOdometerDashboardEvent,
     );
   }
 
   Stream<DashboardState> _mapInitialDashboardEvent(
       _InitialDashboardEvent event) async* {
     yield const DashboardState.loading();
-    await Socket.connect('192.168.1.100', 80).then((Socket sock) {
-      socket = sock;
-      // socket!.listen(
-      //   dataHandler,
-      //   onError: errorHandler,
-      //   onDone: doneHandler,
-      //   cancelOnError: false,
-      // );
-    });
-    socket!.write('POWER');
+
     try {
+      List<UsbDevice>? devices = await UsbSerial.listDevices();
+      print(devices);
+
+      UsbPort? port;
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
       voltage = 12.6;
       outsideTemperature = 35.3;
       temperatureInCar = 28.3;
@@ -93,9 +93,59 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam = false;
       isOnOffHighBeam = false;
       temperatureEngine = 87.0;
-      totalValueOdometer = 125789;
+      final prefs = _prefs.getString('totalValueOdometer');
+      if (prefs != '') {
+        totalValueOdometer = int.tryParse(prefs!)!;
+      } else {
+        totalValueOdometer = 0;
+      }
       partValueOdometer = 56;
       speed = 60;
+
+      if (devices.length == 0) {
+        yield DashboardState.data(
+          voltage: voltage,
+          outsideTemperature: outsideTemperature,
+          temperatureInCar: temperatureInCar,
+          fuelLevel: fuelLevel,
+          isPowerEngine: isPowerEngine,
+          isEmergencySignal: isEmergencySignal,
+          code: code,
+          turnoverEngine: turnoverEngine,
+          fuelConsumption: fuelConsumption,
+          isOpenDoors: isOpenDoors,
+          isOpenTrunk: isOpenTrunk,
+          isOnOffLowBeam: isOnOffLowBeam,
+          isOnOffHighBeam: isOnOffHighBeam,
+          temperatureEngine: temperatureEngine,
+          totalValueOdometer: totalValueOdometer,
+          partValueOdometer: partValueOdometer,
+          speed: speed,
+        );
+      }
+      port = await devices[0].create();
+
+      bool openResult = await port!.open();
+      if ( !openResult ) {
+        print("Failed to open");
+        return;
+      }
+
+      await port.setDTR(true);
+      await port.setRTS(true);
+
+      port.setPortParameters(115200, UsbPort.DATABITS_8,
+          UsbPort.STOPBITS_1, UsbPort.PARITY_NONE);
+
+      // print first result and close port.
+      port.inputStream!.listen((Uint8List ev) {
+        print(ev);
+        port!.close();
+      });
+
+      await port.write(Uint8List.fromList([0x10, 0x00]));
+
+
     } catch (e) {
       yield const DashboardState.error(message: '');
     }
@@ -319,16 +369,83 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
   }
 
-  void dataHandler(data) {
-    print(String.fromCharCodes(data).trim());
+  Stream<DashboardState> _mapDiscardOdometerDashboardEvent(
+      _DiscardOdometerDashboardEvent event) async* {
+    yield DashboardState.loading();
+    if (event.type == 0) {
+      partValueOdometer = 0;
+    }
+    if (event.type == 1) {
+      totalValueOdometer = 0;
+    }
+    yield DashboardState.data(
+      voltage: voltage,
+      outsideTemperature: outsideTemperature,
+      temperatureInCar: temperatureInCar,
+      fuelLevel: fuelLevel,
+      isPowerEngine: isPowerEngine,
+      isEmergencySignal: isEmergencySignal,
+      code: code,
+      turnoverEngine: turnoverEngine,
+      fuelConsumption: fuelConsumption,
+      isOpenDoors: isOpenDoors,
+      isOpenTrunk: isOpenTrunk,
+      isOnOffLowBeam: isOnOffLowBeam,
+      isOnOffHighBeam: isOnOffHighBeam,
+      temperatureEngine: temperatureEngine,
+      totalValueOdometer: totalValueOdometer,
+      partValueOdometer: partValueOdometer,
+      speed: speed,
+    );
   }
 
-  void errorHandler(error, StackTrace trace) {
-    print(error);
+  Stream<DashboardState> _mapEditOdometerDashboardEvent(
+      _EditOdometerDashboardEvent event) async* {
+    totalValueOdometer = int.tryParse(event.valueOdometer!)!;
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _prefs.setString('totalValueOdometer', event.valueOdometer!);
+    yield DashboardState.data(
+      voltage: voltage,
+      outsideTemperature: outsideTemperature,
+      temperatureInCar: temperatureInCar,
+      fuelLevel: fuelLevel,
+      isPowerEngine: isPowerEngine,
+      isEmergencySignal: isEmergencySignal,
+      code: code,
+      turnoverEngine: turnoverEngine,
+      fuelConsumption: fuelConsumption,
+      isOpenDoors: isOpenDoors,
+      isOpenTrunk: isOpenTrunk,
+      isOnOffLowBeam: isOnOffLowBeam,
+      isOnOffHighBeam: isOnOffHighBeam,
+      temperatureEngine: temperatureEngine,
+      totalValueOdometer: totalValueOdometer,
+      partValueOdometer: partValueOdometer,
+      speed: speed,
+    );
   }
 
-  void doneHandler() {
-    socket!.destroy();
+  Stream<DashboardState> _mapSaveValueOdometerDashboardEvent(
+      _SaveValueOdometerDashboardEvent event) async* {
+    yield DashboardState.data(
+      voltage: voltage,
+      outsideTemperature: outsideTemperature,
+      temperatureInCar: temperatureInCar,
+      fuelLevel: fuelLevel,
+      isPowerEngine: isPowerEngine,
+      isEmergencySignal: isEmergencySignal,
+      code: code,
+      turnoverEngine: turnoverEngine,
+      fuelConsumption: fuelConsumption,
+      isOpenDoors: isOpenDoors,
+      isOpenTrunk: isOpenTrunk,
+      isOnOffLowBeam: isOnOffLowBeam,
+      isOnOffHighBeam: isOnOffHighBeam,
+      temperatureEngine: temperatureEngine,
+      totalValueOdometer: totalValueOdometer,
+      partValueOdometer: partValueOdometer,
+      speed: speed,
+    );
   }
 }
 
@@ -337,6 +454,8 @@ class DashboardState with _$DashboardState {
   const factory DashboardState.initial() = _InitialDashboardState;
 
   const factory DashboardState.loading() = _LoadingDashboardState;
+
+  const factory DashboardState.editOdometer() = _EditOdometerDashboardState;
 
   const factory DashboardState.data({
     final double? voltage,
@@ -397,5 +516,9 @@ class DashboardEvent with _$DashboardEvent {
     final int? type,
   }) = _DiscardOdometerDashboardEvent;
 
-  const factory DashboardEvent.editOdometer() = _EditOdometerDashboardEvent;
+  const factory DashboardEvent.editOdometer({
+    final String? valueOdometer,
+  }) = _EditOdometerDashboardEvent;
+
+  const factory DashboardEvent.saveValueOdometer() = _SaveValueOdometerDashboardEvent;
 }

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:vaz_mobile/resourses/main_icons.dart';
+import 'package:vaz_mobile/screens/dashboard/_bloc/dashboard_bloc.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/icon_panel.dart';
+import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 import 'package:vaz_mobile/style/app_colors.dart';
 import 'package:vaz_mobile/style/app_text_style.dart';
-import 'package:vaz_mobile/widgets/dialogs/showButtonDialog.dart';
+import 'package:vaz_mobile/widgets/dialogs/main_show_dialog.dart';
+import 'package:vaz_mobile/widgets/dialogs/show_button_dialog.dart';
 
 class BottomPanel extends StatelessWidget {
   final int? totalValueOdometer;
@@ -19,6 +24,7 @@ class BottomPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<DashboardViewModel>(context);
     return Container(
       height: 60,
       child: Row(
@@ -32,6 +38,10 @@ class BottomPanel extends StatelessWidget {
                   [
                     OutlinedButton(
                       onPressed: () {
+                        BlocProvider.of<DashboardBloc>(context)
+                          ..add(
+                            DashboardEvent.discardOdometer(type: 0),
+                          );
                         Navigator.pop(context);
                       },
                       style: OutlinedButton.styleFrom(
@@ -81,6 +91,10 @@ class BottomPanel extends StatelessWidget {
                   [
                     OutlinedButton(
                       onPressed: () {
+                        BlocProvider.of<DashboardBloc>(context)
+                          ..add(
+                            DashboardEvent.discardOdometer(type: 1),
+                          );
                         Navigator.pop(context);
                       },
                       style: OutlinedButton.styleFrom(
@@ -101,6 +115,18 @@ class BottomPanel extends StatelessWidget {
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        editOdometerDialog(
+                          context,
+                          vm.odometerTextController,
+                          vm.odometerFocusNode,
+                          (value) {
+                            BlocProvider.of<DashboardBloc>(context)
+                              ..add(
+                                DashboardEvent.editOdometer(
+                                    valueOdometer: value),
+                              );
+                          },
+                        );
                       },
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.white,

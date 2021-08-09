@@ -7,6 +7,8 @@ import 'package:vaz_mobile/screens/dashboard/_widgets/divider.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/left_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/right_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/top_panel.dart';
+import 'package:provider/provider.dart';
+import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 
 class DashboardBody extends StatelessWidget {
   final double? voltage;
@@ -23,6 +25,8 @@ class DashboardBody extends StatelessWidget {
   final bool? isOnOffLowBeam;
   final bool? isOnOffHighBeam;
   final double? temperatureEngine;
+  final int? partValueOdometer;
+  final int? totalValueOdometer;
 
   const DashboardBody({
     Key? key,
@@ -40,65 +44,76 @@ class DashboardBody extends StatelessWidget {
     this.isOnOffLowBeam,
     this.isOnOffHighBeam,
     this.temperatureEngine,
+    this.partValueOdometer,
+    this.totalValueOdometer,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TopPanel(
-          fuelLevel: fuelLevel,
-          voltage: voltage,
-          outsideTemperature: outsideTemperature,
-          temperatureInCar: temperatureInCar,
-          temperatureEngine: temperatureEngine,
-        ),
-        CustomDivider(),
-        Expanded(
-          child: Row(
-            children: [
-              LeftPanel(
-                isPowerEngine: isPowerEngine,
-                isEmergencySignal: isEmergencySignal,
-                code: code,
-                startEngine: () => BlocProvider.of<DashboardBloc>(context)
-                  ..add(DashboardEvent.startEngine()),
-                turnEmergencySignal: () =>
-                    BlocProvider.of<DashboardBloc>(context)
-                      ..add(DashboardEvent.turnEmergencySignal()),
-                openWarning: () => BlocProvider.of<DashboardBloc>(context)
-                  ..add(DashboardEvent.openWarning()),
-              ),
-              CenterPanel(
-                speed: 60,
-                turnoverEngine: turnoverEngine,
-                fuelConsumption: fuelConsumption,
-              ),
-              RightPanel(
-                isOpenDoors: isOpenDoors,
-                isOpenTrunk: isOpenTrunk,
-                isOnOffLowBeam: isOnOffLowBeam,
-                isOnOffHighBeam: isOnOffHighBeam,
-                openDoors: () => BlocProvider.of<DashboardBloc>(context)
-                  ..add(DashboardEvent.openDoors()),
-                openTrunk: () => BlocProvider.of<DashboardBloc>(context)
-                  ..add(DashboardEvent.openTrunk()),
-                turnOnOffHighBeam: () => BlocProvider.of<DashboardBloc>(context)
-                  ..add(DashboardEvent.turnOnOffHighBeam()),
-                turnOnOffLowBeam: () => BlocProvider.of<DashboardBloc>(context)
-                  ..add(DashboardEvent.turnOnOffLowBeam()),
-              ),
-            ],
+    return ChangeNotifierProvider(
+      create: (_) => DashboardViewModel(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TopPanel(
+            fuelLevel: fuelLevel,
+            voltage: voltage,
+            outsideTemperature: outsideTemperature,
+            temperatureInCar: temperatureInCar,
+            temperatureEngine: temperatureEngine,
           ),
-        ),
-        CustomDivider(),
-        BottomPanel(
-          partValueOdometer: 56,
-          totalValueOdometer: 56874,
-          openSettings: () {},
-        ),
-      ],
+          CustomDivider(),
+          Expanded(
+            child: Row(
+              children: [
+                LeftPanel(
+                  isPowerEngine: isPowerEngine,
+                  isEmergencySignal: isEmergencySignal,
+                  code: code,
+                  startEngine: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.startEngine()),
+                  turnEmergencySignal: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.turnEmergencySignal()),
+                  openWarning: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.openWarning()),
+                ),
+                CenterPanel(
+                  speed: 60,
+                  turnoverEngine: turnoverEngine,
+                  fuelConsumption: fuelConsumption,
+                ),
+                RightPanel(
+                  isOpenDoors: isOpenDoors,
+                  isOpenTrunk: isOpenTrunk,
+                  isOnOffLowBeam: isOnOffLowBeam,
+                  isOnOffHighBeam: isOnOffHighBeam,
+                  openDoors: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.openDoors()),
+                  openTrunk: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.openTrunk()),
+                  turnOnOffHighBeam: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.turnOnOffHighBeam()),
+                  turnOnOffLowBeam: () =>
+                  BlocProvider.of<DashboardBloc>(context)
+                    ..add(DashboardEvent.turnOnOffLowBeam()),
+                ),
+              ],
+            ),
+          ),
+          CustomDivider(),
+          BottomPanel(
+            partValueOdometer: partValueOdometer,
+            totalValueOdometer: totalValueOdometer,
+            openSettings: () {},
+          ),
+        ],
+      ),
     );
   }
 }
