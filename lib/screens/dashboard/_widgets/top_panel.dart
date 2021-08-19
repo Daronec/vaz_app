@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaz_mobile/resourses/main_icons.dart';
+import 'package:vaz_mobile/screens/dashboard/_bloc/dashboard_bloc.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/divider.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/fuel_level.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/item_data_top_panel.dart';
@@ -44,17 +46,19 @@ class TopPanel extends StatelessWidget {
           CustomVerticalDivider(),
           ItemDataTopPanel(
             icon: MainIcons.outside_temperature,
-            data: '$outsideTemperature°',
+            data: '${outsideTemperature!.round()}°',
+            onTap: () => BlocProvider.of<DashboardBloc>(context)
+              ..add(DashboardEvent.viewWeather()),
           ),
           CustomVerticalDivider(),
           ItemDataTopPanel(
             icon: MainIcons.temperature_in_car,
-            data: '$temperatureInCar°',
+            data: '${temperatureInCar!.round()}°',
           ),
           CustomVerticalDivider(),
           ItemDataTopPanel(
             icon: MainIcons.engine_coolant,
-            data: '$temperatureEngine°',
+            data: '${temperatureEngine!.round()}°',
           ),
         ],
       ),

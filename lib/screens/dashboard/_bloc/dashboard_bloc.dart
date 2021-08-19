@@ -1,16 +1,21 @@
 import 'dart:async';
+import 'dart:core';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usb_serial/usb_serial.dart';
+import 'package:vaz_mobile/data/repository.dart';
 
 part 'dashboard_bloc.freezed.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(const DashboardState.initial());
+
+  Repository repository = Repository();
 
   /*
    Входные данные:
@@ -49,7 +54,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   int totalValueOdometer = 0;
   int partValueOdometer = 0;
   int speed = 0;
-
+  double? lat = 0.0;
+  double? lon = 0.0;
+  String? nameLocation = '';
+  double? tempLocation = 0.0;
+  int? pressure = 0;
+  double? speedWind = 0.0;
+  int? humidity = 0;
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
@@ -66,6 +77,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       discardOdometer: _mapDiscardOdometerDashboardEvent,
       editOdometer: _mapEditOdometerDashboardEvent,
       saveValueOdometer: _mapSaveValueOdometerDashboardEvent,
+      viewWeather: _mapViewWeatherDashboardEvent,
     );
   }
 
@@ -74,13 +86,25 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     yield const DashboardState.loading();
 
     try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      lat = position.latitude;
+      lon = position.longitude;
+      final weather = await repository.weather(
+        position.latitude,
+        position.longitude,
+      );
+      tempLocation = weather.main!.temp;
+      nameLocation = weather.name;
+      pressure = weather.main!.pressure;
+      humidity = weather.main!.humidity;
+      speedWind = weather.wind!.speed;
       List<UsbDevice>? devices = await UsbSerial.listDevices();
-      print(devices);
-
       UsbPort? port;
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       voltage = 12.6;
-      outsideTemperature = 35.3;
+      outsideTemperature = weather.main!.temp! - 273.15;
       temperatureInCar = 28.3;
       fuelLevel = 3;
       isPowerEngine = false;
@@ -94,58 +118,31 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffHighBeam = false;
       temperatureEngine = 87.0;
       final prefs = _prefs.getString('totalValueOdometer');
-      if (prefs != '') {
-        totalValueOdometer = int.tryParse(prefs!)!;
+      if (prefs != null) {
+        totalValueOdometer = int.tryParse(prefs)!;
       } else {
         totalValueOdometer = 0;
       }
       partValueOdometer = 56;
       speed = 60;
-
-      if (devices.length == 0) {
-        yield DashboardState.data(
-          voltage: voltage,
-          outsideTemperature: outsideTemperature,
-          temperatureInCar: temperatureInCar,
-          fuelLevel: fuelLevel,
-          isPowerEngine: isPowerEngine,
-          isEmergencySignal: isEmergencySignal,
-          code: code,
-          turnoverEngine: turnoverEngine,
-          fuelConsumption: fuelConsumption,
-          isOpenDoors: isOpenDoors,
-          isOpenTrunk: isOpenTrunk,
-          isOnOffLowBeam: isOnOffLowBeam,
-          isOnOffHighBeam: isOnOffHighBeam,
-          temperatureEngine: temperatureEngine,
-          totalValueOdometer: totalValueOdometer,
-          partValueOdometer: partValueOdometer,
-          speed: speed,
-        );
+      if (devices.isNotEmpty) {
+        port = await devices[0].create();
+        bool openResult = await port!.open();
+        if (!openResult) {
+          print("Failed to open");
+          return;
+        }
+        await port.setDTR(true);
+        await port.setRTS(true);
+        port.setPortParameters(115200, UsbPort.DATABITS_8, UsbPort.STOPBITS_1,
+            UsbPort.PARITY_NONE);
+        // print first result and close port.
+        port.inputStream!.listen((Uint8List ev) {
+          print(ev);
+          port!.close();
+        });
+        await port.write(Uint8List.fromList([0x10, 0x00]));
       }
-      port = await devices[0].create();
-
-      bool openResult = await port!.open();
-      if ( !openResult ) {
-        print("Failed to open");
-        return;
-      }
-
-      await port.setDTR(true);
-      await port.setRTS(true);
-
-      port.setPortParameters(115200, UsbPort.DATABITS_8,
-          UsbPort.STOPBITS_1, UsbPort.PARITY_NONE);
-
-      // print first result and close port.
-      port.inputStream!.listen((Uint8List ev) {
-        print(ev);
-        port!.close();
-      });
-
-      await port.write(Uint8List.fromList([0x10, 0x00]));
-
-
     } catch (e) {
       yield const DashboardState.error(message: '');
     }
@@ -447,6 +444,47 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       speed: speed,
     );
   }
+
+  Stream<DashboardState> _mapViewWeatherDashboardEvent(
+      _ViewWeatherDashboardEvent event) async* {
+    try {
+      final weather = await repository.weather(lat!, lon!);
+      tempLocation = weather.main!.temp! - 273.15;
+      nameLocation = weather.name;
+      pressure = weather.main!.pressure;
+      humidity = weather.main!.humidity;
+      speedWind = weather.wind!.speed;
+    } catch (ex) {
+      yield const DashboardState.error(message: '');
+    }
+
+    yield DashboardState.viewWeather(
+      name: nameLocation,
+      temp: tempLocation,
+      pressure: pressure,
+      speedWind: speedWind,
+      humidity: humidity,
+    );
+    yield DashboardState.data(
+      voltage: voltage,
+      outsideTemperature: outsideTemperature,
+      temperatureInCar: temperatureInCar,
+      fuelLevel: fuelLevel,
+      isPowerEngine: isPowerEngine,
+      isEmergencySignal: isEmergencySignal,
+      code: code,
+      turnoverEngine: turnoverEngine,
+      fuelConsumption: fuelConsumption,
+      isOpenDoors: isOpenDoors,
+      isOpenTrunk: isOpenTrunk,
+      isOnOffLowBeam: isOnOffLowBeam,
+      isOnOffHighBeam: isOnOffHighBeam,
+      temperatureEngine: temperatureEngine,
+      totalValueOdometer: totalValueOdometer,
+      partValueOdometer: partValueOdometer,
+      speed: speed,
+    );
+  }
 }
 
 @freezed
@@ -456,6 +494,14 @@ class DashboardState with _$DashboardState {
   const factory DashboardState.loading() = _LoadingDashboardState;
 
   const factory DashboardState.editOdometer() = _EditOdometerDashboardState;
+
+  const factory DashboardState.viewWeather({
+    final String? name,
+    final double? temp,
+    final int? pressure,
+    final double? speedWind,
+    final int? humidity,
+  }) = _ViewWeatherDashboardState;
 
   const factory DashboardState.data({
     final double? voltage,
@@ -520,5 +566,8 @@ class DashboardEvent with _$DashboardEvent {
     final String? valueOdometer,
   }) = _EditOdometerDashboardEvent;
 
-  const factory DashboardEvent.saveValueOdometer() = _SaveValueOdometerDashboardEvent;
+  const factory DashboardEvent.saveValueOdometer() =
+      _SaveValueOdometerDashboardEvent;
+
+  const factory DashboardEvent.viewWeather() = _ViewWeatherDashboardEvent;
 }

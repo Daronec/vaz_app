@@ -7,7 +7,7 @@ import 'package:vaz_mobile/screens/dashboard/_widgets/icon_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 import 'package:vaz_mobile/style/app_colors.dart';
 import 'package:vaz_mobile/style/app_text_style.dart';
-import 'package:vaz_mobile/widgets/dialogs/main_show_dialog.dart';
+import 'package:vaz_mobile/widgets/dialogs/edit_odometer_dialog.dart';
 import 'package:vaz_mobile/widgets/dialogs/show_button_dialog.dart';
 
 class BottomPanel extends StatelessWidget {

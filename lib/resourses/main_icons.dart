@@ -17,4 +17,8 @@ class MainIcons {
   static const trunk = 'assets/svg_icons/trunk.svg';
   static const warning = 'assets/svg_icons/warning.svg';
   static const settings = 'assets/svg_icons/settings.svg';
+  static const temp_location = 'assets/svg_icons/thermometer.svg';
+  static const pressure = 'assets/svg_icons/pressure.svg';
+  static const speed_wind = 'assets/svg_icons/wind.svg';
+  static const humidity = 'assets/svg_icons/humidity.svg';
 }
