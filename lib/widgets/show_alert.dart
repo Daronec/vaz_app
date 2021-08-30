@@ -5,7 +5,6 @@ import 'package:vaz_mobile/widgets/default_button.dart';
 void showAlert(
     context,
     String message, {
-      String? description,
       String? firstButton,
       String? secondButton,
       Function? pressedFirstButton,
@@ -22,7 +21,6 @@ void showAlert(
       builder: (context) {
         return AlertBody(
           error: message,
-          description: description,
           firstButton: firstButton,
           secondButton: secondButton,
           pressedFirstButton: pressedFirstButton,
@@ -33,7 +31,6 @@ void showAlert(
 
 class AlertBody extends StatelessWidget {
   final String? error;
-  final String? description;
   final String? firstButton;
   final String? secondButton;
   final Function? pressedFirstButton;
@@ -42,7 +39,6 @@ class AlertBody extends StatelessWidget {
   const AlertBody({
     Key? key,
     this.error,
-    this.description,
     this.firstButton,
     this.secondButton,
     this.pressedFirstButton,
@@ -60,13 +56,7 @@ class AlertBody extends StatelessWidget {
             error!,
             style: AppTextStyles.subTitle,
           ),
-          const SizedBox(height: 8),
-          Text(
-            description!,
-            textAlign: TextAlign.center,
-            style: AppTextStyles.subTitle,
-          ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           DefaultButton(
             title: firstButton,
             onPress: () {

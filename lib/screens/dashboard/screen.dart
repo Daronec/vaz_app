@@ -38,7 +38,6 @@ class DashboardScreen extends StatelessWidget {
                     error: (_error) => showAlert(
                       context,
                       _error.message!,
-                      description: 'ВНИМАНИЕ',
                       firstButton: 'Закрыть',
                       pressedFirstButton: () {
                         Navigator.pop(context);

@@ -1,16 +1,25 @@
 # vaz_mobile
 
-A new Flutter project.
+Проект приложения для управления карбюраторным автомобилем с использованием микроконтролера Arduino Due.
+
+An application project for controlling a carburetor car using an Arduino Due microcontroller.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Функции проекта.
 
-A few resources to get you started if this is your first Flutter project:
+Смартфон подключается к ардуино и принимает значения от датчиков автомобиля. 
+Также есть возможность управлять устройствами автомобиля передавая команды на ардуино.
+Приложение имеет основной экран, на котором располагается вся необходимя информация о авто, 
+а закже кнопки управления (запуск двигателя, включения аварийного сигнала, открывание/закрытие дверей, включение фар).
+Получение на смартфон данных о погоде.
+Диагностика устройств на автомобиле.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Project functions.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The smartphone connects to the arduino and receives values from the vehicle's sensors.
+It is also possible to control car devices by transmitting commands to the arduino.
+The application has a main screen, which contains all the necessary information about the car,
+as well as control buttons (starting the engine, turning on the alarm, opening / closing doors, turning on the headlights).
+Receiving weather data on a smartphone.
+Diagnostics of devices on the car. 

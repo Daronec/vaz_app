@@ -3,11 +3,14 @@ import 'dart:core';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:usb_serial/usb_serial.dart';
+// import 'package:usb_serial/usb_serial.dart';
+// import 'package:usb_serial/transaction.dart';
+import 'package:vaz_mobile/data/helpers/request_error.dart';
 import 'package:vaz_mobile/data/repository.dart';
 
 part 'dashboard_bloc.freezed.dart';
@@ -62,6 +65,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   double? speedWind = 0.0;
   int? humidity = 0;
 
+  // UsbPort? _port;
+  // String _status = "Idle";
+  // List<Widget> _ports = [];
+  // List<Widget> _serialData = [];
+  //
+  // StreamSubscription<String>? _subscription;
+  // Transaction<String>? _transaction;
+  UsbDevice? _device;
+  UsbDeviceConnection? usbConnection;
+  UsbSerialDevice serial = UsbSerialDevice.createUsbSerialDevice(device, usbConnection);
+
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
     yield* event.map(
@@ -78,6 +92,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       editOdometer: _mapEditOdometerDashboardEvent,
       saveValueOdometer: _mapSaveValueOdometerDashboardEvent,
       viewWeather: _mapViewWeatherDashboardEvent,
+      sendSosSms: _mapSendSosSmsDashboardEvent,
     );
   }
 
@@ -100,8 +115,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       pressure = weather.main!.pressure;
       humidity = weather.main!.humidity;
       speedWind = weather.wind!.speed;
-      List<UsbDevice>? devices = await UsbSerial.listDevices();
-      UsbPort? port;
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       voltage = 12.6;
       outsideTemperature = weather.main!.temp! - 273.15;
@@ -125,26 +138,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       }
       partValueOdometer = 56;
       speed = 60;
-      if (devices.isNotEmpty) {
-        port = await devices[0].create();
-        bool openResult = await port!.open();
-        if (!openResult) {
-          print("Failed to open");
-          return;
-        }
-        await port.setDTR(true);
-        await port.setRTS(true);
-        port.setPortParameters(115200, UsbPort.DATABITS_8, UsbPort.STOPBITS_1,
-            UsbPort.PARITY_NONE);
-        // print first result and close port.
-        port.inputStream!.listen((Uint8List ev) {
-          print(ev);
-          port!.close();
-        });
-        await port.write(Uint8List.fromList([0x10, 0x00]));
-      }
-    } catch (e) {
-      yield const DashboardState.error(message: '');
+
+    } catch (ex) {
+      yield DashboardState.error(message: requestError(ex));
     }
     yield DashboardState.data(
       voltage: voltage,
@@ -455,7 +451,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       humidity = weather.main!.humidity;
       speedWind = weather.wind!.speed;
     } catch (ex) {
-      yield const DashboardState.error(message: '');
+      yield DashboardState.error(message: requestError(ex));
     }
 
     yield DashboardState.viewWeather(
@@ -485,6 +481,119 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       speed: speed,
     );
   }
+
+  Stream<DashboardState> _mapSendSosSmsDashboardEvent(
+      _SendSosSmsDashboardEvent event) async* {
+    try {
+      final smsResponse = await repository.sendSosSms(
+        'daronec@yandex.ru',
+        'Sl9XTQ3jmD4xiFloA80HqJj6Ok8g',
+        '79189952689',
+        'Мне нужна помощь. Мои координаты - $lat-$lon',
+        'Sms Aero',
+      );
+      print(smsResponse.message);
+    } on FormatException {
+      print('Format error!');
+    } catch (ex) {
+      yield DashboardState.error(message: requestError(ex));
+    }
+    yield DashboardState.data(
+      voltage: voltage,
+      outsideTemperature: outsideTemperature,
+      temperatureInCar: temperatureInCar,
+      fuelLevel: fuelLevel,
+      isPowerEngine: isPowerEngine,
+      isEmergencySignal: isEmergencySignal,
+      code: code,
+      turnoverEngine: turnoverEngine,
+      fuelConsumption: fuelConsumption,
+      isOpenDoors: isOpenDoors,
+      isOpenTrunk: isOpenTrunk,
+      isOnOffLowBeam: isOnOffLowBeam,
+      isOnOffHighBeam: isOnOffHighBeam,
+      temperatureEngine: temperatureEngine,
+      totalValueOdometer: totalValueOdometer,
+      partValueOdometer: partValueOdometer,
+      speed: speed,
+    );
+  }
+
+  // Future<bool> _connectTo(device) async {
+  //   _serialData.clear();
+  //
+  //   if (_subscription != null) {
+  //     _subscription!.cancel();
+  //     _subscription = null;
+  //   }
+  //
+  //   if (_transaction != null) {
+  //     _transaction!.dispose();
+  //     _transaction = null;
+  //   }
+  //
+  //   if (_port != null) {
+  //     _port!.close();
+  //     _port = null;
+  //   }
+  //
+  //   if (device == null) {
+  //     _device = null;
+  //     _status = "Disconnected";
+  //     return true;
+  //   }
+  //
+  //   _port = await device.create();
+  //   if (await (_port!.open()) != true) {
+  //     _status = "Failed to open port";
+  //     return false;
+  //   }
+  //   _device = device;
+  //
+  //   await _port!.setDTR(true);
+  //   await _port!.setRTS(true);
+  //   await _port!.setPortParameters(115200, UsbPort.DATABITS_8, UsbPort.STOPBITS_1, UsbPort.PARITY_NONE);
+  //
+  //   _transaction = Transaction.stringTerminated(_port!.inputStream as Stream<Uint8List>, Uint8List.fromList([13, 10]));
+  //
+  //   _subscription = _transaction!.stream.listen((String line) {
+  //     _serialData.add(Text(line));
+  //     if (_serialData.length > 20) {
+  //       _serialData.removeAt(0);
+  //     }
+  //   });
+  //
+  //   _status = "Connected";
+  //   return true;
+  // }
+  //
+  // void _getPorts() async {
+  //   _ports = [];
+  //
+  //   List<UsbDevice> devices = await UsbSerial.listDevices();
+  //   if (!devices.contains(_device)) {
+  //     _connectTo(null);
+  //   }
+  //   print(devices);
+  //
+  //   // devices.forEach((device) {
+  //   //   _ports.add(ListTile(
+  //   //       leading: Icon(Icons.usb),
+  //   //       title: Text(device.productName!),
+  //   //       subtitle: Text(device.manufacturerName!),
+  //   //       trailing: ElevatedButton(
+  //   //         child: Text(_device == device ? "Disconnect" : "Connect"),
+  //   //         onPressed: () {
+  //   //           _connectTo(_device == device ? null : device).then((res) {
+  //   //             _getPorts();
+  //   //           });
+  //   //         },
+  //   //       )));
+  //   // });
+  //   //
+  //   // print(_ports);
+  // }
+
 }
 
 @freezed
@@ -570,4 +679,7 @@ class DashboardEvent with _$DashboardEvent {
       _SaveValueOdometerDashboardEvent;
 
   const factory DashboardEvent.viewWeather() = _ViewWeatherDashboardEvent;
+
+  const factory DashboardEvent.sendSosSms() = _SendSosSmsDashboardEvent;
 }
+

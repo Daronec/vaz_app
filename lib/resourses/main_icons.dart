@@ -21,4 +21,5 @@ class MainIcons {
   static const pressure = 'assets/svg_icons/pressure.svg';
   static const speed_wind = 'assets/svg_icons/wind.svg';
   static const humidity = 'assets/svg_icons/humidity.svg';
+  static const sos = 'assets/svg_icons/sos.svg';
 }

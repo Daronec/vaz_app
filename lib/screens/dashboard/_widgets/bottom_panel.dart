@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:vaz_mobile/resourses/main_icons.dart';
 import 'package:vaz_mobile/screens/dashboard/_bloc/dashboard_bloc.dart';
-import 'package:vaz_mobile/screens/dashboard/_widgets/icon_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 import 'package:vaz_mobile/style/app_colors.dart';
 import 'package:vaz_mobile/style/app_text_style.dart';
@@ -13,13 +13,13 @@ import 'package:vaz_mobile/widgets/dialogs/show_button_dialog.dart';
 class BottomPanel extends StatelessWidget {
   final int? totalValueOdometer;
   final int? partValueOdometer;
-  final Function? openSettings;
+  final Function? sos;
 
   const BottomPanel({
     Key? key,
     this.totalValueOdometer,
     this.partValueOdometer,
-    this.openSettings,
+    this.sos,
   }) : super(key: key);
 
   @override
@@ -79,9 +79,9 @@ class BottomPanel extends StatelessWidget {
               ),
             ),
           ),
-          IconPanel(
-            icon: MainIcons.settings,
-            onTap: () => openSettings!(),
+          IconButton(
+            onPressed: () => sos!(),
+            icon: SvgPicture.asset(MainIcons.sos, color: AppColors.red,),
           ),
           Expanded(
             child: Center(

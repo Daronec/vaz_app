@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:vaz_mobile/screens/dashboard/_bloc/dashboard_bloc.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/bottom_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/center_panel.dart';
@@ -7,7 +8,6 @@ import 'package:vaz_mobile/screens/dashboard/_widgets/divider.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/left_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/right_panel.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/top_panel.dart';
-import 'package:provider/provider.dart';
 import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 
 class DashboardBody extends StatelessWidget {
@@ -70,14 +70,12 @@ class DashboardBody extends StatelessWidget {
                   isPowerEngine: isPowerEngine,
                   isEmergencySignal: isEmergencySignal,
                   code: code,
-                  startEngine: () =>
-                  BlocProvider.of<DashboardBloc>(context)
+                  startEngine: () => BlocProvider.of<DashboardBloc>(context)
                     ..add(DashboardEvent.startEngine()),
                   turnEmergencySignal: () =>
-                  BlocProvider.of<DashboardBloc>(context)
-                    ..add(DashboardEvent.turnEmergencySignal()),
-                  openWarning: () =>
-                  BlocProvider.of<DashboardBloc>(context)
+                      BlocProvider.of<DashboardBloc>(context)
+                        ..add(DashboardEvent.turnEmergencySignal()),
+                  openWarning: () => BlocProvider.of<DashboardBloc>(context)
                     ..add(DashboardEvent.openWarning()),
                 ),
                 CenterPanel(
@@ -90,18 +88,16 @@ class DashboardBody extends StatelessWidget {
                   isOpenTrunk: isOpenTrunk,
                   isOnOffLowBeam: isOnOffLowBeam,
                   isOnOffHighBeam: isOnOffHighBeam,
-                  openDoors: () =>
-                  BlocProvider.of<DashboardBloc>(context)
+                  openDoors: () => BlocProvider.of<DashboardBloc>(context)
                     ..add(DashboardEvent.openDoors()),
-                  openTrunk: () =>
-                  BlocProvider.of<DashboardBloc>(context)
+                  openTrunk: () => BlocProvider.of<DashboardBloc>(context)
                     ..add(DashboardEvent.openTrunk()),
                   turnOnOffHighBeam: () =>
-                  BlocProvider.of<DashboardBloc>(context)
-                    ..add(DashboardEvent.turnOnOffHighBeam()),
+                      BlocProvider.of<DashboardBloc>(context)
+                        ..add(DashboardEvent.turnOnOffHighBeam()),
                   turnOnOffLowBeam: () =>
-                  BlocProvider.of<DashboardBloc>(context)
-                    ..add(DashboardEvent.turnOnOffLowBeam()),
+                      BlocProvider.of<DashboardBloc>(context)
+                        ..add(DashboardEvent.turnOnOffLowBeam()),
                 ),
               ],
             ),
@@ -110,7 +106,8 @@ class DashboardBody extends StatelessWidget {
           BottomPanel(
             partValueOdometer: partValueOdometer,
             totalValueOdometer: totalValueOdometer,
-            openSettings: () {},
+            sos: () => BlocProvider.of<DashboardBloc>(context)
+              ..add(DashboardEvent.sendSosSms()),
           ),
         ],
       ),
