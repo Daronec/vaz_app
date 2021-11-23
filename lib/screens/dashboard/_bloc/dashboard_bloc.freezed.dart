@@ -43,6 +43,12 @@ class _$DashboardStateTearOff {
     );
   }
 
+  _ViewDevicesDashboardState viewDevices({List<UsbDevice>? devices}) {
+    return _ViewDevicesDashboardState(
+      devices: devices,
+    );
+  }
+
   _DataDashboardState data(
       {double? voltage,
       double? outsideTemperature,
@@ -108,6 +114,7 @@ mixin _$DashboardState {
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -139,6 +146,7 @@ mixin _$DashboardState {
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -169,6 +177,7 @@ mixin _$DashboardState {
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -180,6 +189,7 @@ mixin _$DashboardState {
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -259,6 +269,7 @@ class _$_InitialDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -293,6 +304,7 @@ class _$_InitialDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -329,6 +341,7 @@ class _$_InitialDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -343,6 +356,7 @@ class _$_InitialDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -413,6 +427,7 @@ class _$_LoadingDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -447,6 +462,7 @@ class _$_LoadingDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -483,6 +499,7 @@ class _$_LoadingDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -497,6 +514,7 @@ class _$_LoadingDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -569,6 +587,7 @@ class _$_EditOdometerDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -603,6 +622,7 @@ class _$_EditOdometerDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -639,6 +659,7 @@ class _$_EditOdometerDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -653,6 +674,7 @@ class _$_EditOdometerDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -807,6 +829,7 @@ class _$_ViewWeatherDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -841,6 +864,7 @@ class _$_ViewWeatherDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -877,6 +901,7 @@ class _$_ViewWeatherDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -891,6 +916,7 @@ class _$_ViewWeatherDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -918,6 +944,200 @@ abstract class _ViewWeatherDashboardState implements DashboardState {
   int? get humidity => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ViewWeatherDashboardStateCopyWith<_ViewWeatherDashboardState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$ViewDevicesDashboardStateCopyWith<$Res> {
+  factory _$ViewDevicesDashboardStateCopyWith(_ViewDevicesDashboardState value,
+          $Res Function(_ViewDevicesDashboardState) then) =
+      __$ViewDevicesDashboardStateCopyWithImpl<$Res>;
+  $Res call({List<UsbDevice>? devices});
+}
+
+/// @nodoc
+class __$ViewDevicesDashboardStateCopyWithImpl<$Res>
+    extends _$DashboardStateCopyWithImpl<$Res>
+    implements _$ViewDevicesDashboardStateCopyWith<$Res> {
+  __$ViewDevicesDashboardStateCopyWithImpl(_ViewDevicesDashboardState _value,
+      $Res Function(_ViewDevicesDashboardState) _then)
+      : super(_value, (v) => _then(v as _ViewDevicesDashboardState));
+
+  @override
+  _ViewDevicesDashboardState get _value =>
+      super._value as _ViewDevicesDashboardState;
+
+  @override
+  $Res call({
+    Object? devices = freezed,
+  }) {
+    return _then(_ViewDevicesDashboardState(
+      devices: devices == freezed
+          ? _value.devices
+          : devices // ignore: cast_nullable_to_non_nullable
+              as List<UsbDevice>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ViewDevicesDashboardState
+    with DiagnosticableTreeMixin
+    implements _ViewDevicesDashboardState {
+  const _$_ViewDevicesDashboardState({this.devices});
+
+  @override
+  final List<UsbDevice>? devices;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DashboardState.viewDevices(devices: $devices)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DashboardState.viewDevices'))
+      ..add(DiagnosticsProperty('devices', devices));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ViewDevicesDashboardState &&
+            (identical(other.devices, devices) ||
+                const DeepCollectionEquality().equals(other.devices, devices)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(devices);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ViewDevicesDashboardStateCopyWith<_ViewDevicesDashboardState>
+      get copyWith =>
+          __$ViewDevicesDashboardStateCopyWithImpl<_ViewDevicesDashboardState>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() editOdometer,
+    required TResult Function(String? name, double? temp, int? pressure,
+            double? speedWind, int? humidity)
+        viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(
+            double? voltage,
+            double? outsideTemperature,
+            double? temperatureInCar,
+            int? fuelLevel,
+            bool? isPowerEngine,
+            bool? isEmergencySignal,
+            List<int>? code,
+            int? turnoverEngine,
+            double? fuelConsumption,
+            bool? isOpenDoors,
+            bool? isOpenTrunk,
+            bool? isOnOffLowBeam,
+            bool? isOnOffHighBeam,
+            double? temperatureEngine,
+            int? totalValueOdometer,
+            int? partValueOdometer,
+            int? speed)
+        data,
+    required TResult Function(String? message) error,
+    required TResult Function(String? message) success,
+  }) {
+    return viewDevices(devices);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? editOdometer,
+    TResult Function(String? name, double? temp, int? pressure,
+            double? speedWind, int? humidity)?
+        viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(
+            double? voltage,
+            double? outsideTemperature,
+            double? temperatureInCar,
+            int? fuelLevel,
+            bool? isPowerEngine,
+            bool? isEmergencySignal,
+            List<int>? code,
+            int? turnoverEngine,
+            double? fuelConsumption,
+            bool? isOpenDoors,
+            bool? isOpenTrunk,
+            bool? isOnOffLowBeam,
+            bool? isOnOffHighBeam,
+            double? temperatureEngine,
+            int? totalValueOdometer,
+            int? partValueOdometer,
+            int? speed)?
+        data,
+    TResult Function(String? message)? error,
+    TResult Function(String? message)? success,
+    required TResult orElse(),
+  }) {
+    if (viewDevices != null) {
+      return viewDevices(devices);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialDashboardState value) initial,
+    required TResult Function(_LoadingDashboardState value) loading,
+    required TResult Function(_EditOdometerDashboardState value) editOdometer,
+    required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
+    required TResult Function(_DataDashboardState value) data,
+    required TResult Function(_ErrorDashboardState value) error,
+    required TResult Function(_SuccessDashboardState value) success,
+  }) {
+    return viewDevices(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialDashboardState value)? initial,
+    TResult Function(_LoadingDashboardState value)? loading,
+    TResult Function(_EditOdometerDashboardState value)? editOdometer,
+    TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
+    TResult Function(_DataDashboardState value)? data,
+    TResult Function(_ErrorDashboardState value)? error,
+    TResult Function(_SuccessDashboardState value)? success,
+    required TResult orElse(),
+  }) {
+    if (viewDevices != null) {
+      return viewDevices(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ViewDevicesDashboardState implements DashboardState {
+  const factory _ViewDevicesDashboardState({List<UsbDevice>? devices}) =
+      _$_ViewDevicesDashboardState;
+
+  List<UsbDevice>? get devices => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$ViewDevicesDashboardStateCopyWith<_ViewDevicesDashboardState>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1228,6 +1448,7 @@ class _$_DataDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1279,6 +1500,7 @@ class _$_DataDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1332,6 +1554,7 @@ class _$_DataDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -1346,6 +1569,7 @@ class _$_DataDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -1482,6 +1706,7 @@ class _$_ErrorDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1516,6 +1741,7 @@ class _$_ErrorDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1552,6 +1778,7 @@ class _$_ErrorDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -1566,6 +1793,7 @@ class _$_ErrorDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -1670,6 +1898,7 @@ class _$_SuccessDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
+    required TResult Function(List<UsbDevice>? devices) viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1704,6 +1933,7 @@ class _$_SuccessDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
+    TResult Function(List<UsbDevice>? devices)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1740,6 +1970,7 @@ class _$_SuccessDashboardState
     required TResult Function(_LoadingDashboardState value) loading,
     required TResult Function(_EditOdometerDashboardState value) editOdometer,
     required TResult Function(_ViewWeatherDashboardState value) viewWeather,
+    required TResult Function(_ViewDevicesDashboardState value) viewDevices,
     required TResult Function(_DataDashboardState value) data,
     required TResult Function(_ErrorDashboardState value) error,
     required TResult Function(_SuccessDashboardState value) success,
@@ -1754,6 +1985,7 @@ class _$_SuccessDashboardState
     TResult Function(_LoadingDashboardState value)? loading,
     TResult Function(_EditOdometerDashboardState value)? editOdometer,
     TResult Function(_ViewWeatherDashboardState value)? viewWeather,
+    TResult Function(_ViewDevicesDashboardState value)? viewDevices,
     TResult Function(_DataDashboardState value)? data,
     TResult Function(_ErrorDashboardState value)? error,
     TResult Function(_SuccessDashboardState value)? success,
@@ -1840,6 +2072,10 @@ class _$DashboardEventTearOff {
     return const _ViewWeatherDashboardEvent();
   }
 
+  _ViewDevivesDashboardEvent viewDevices() {
+    return const _ViewDevivesDashboardEvent();
+  }
+
   _SendSosSmsDashboardEvent sendSosSms() {
     return const _SendSosSmsDashboardEvent();
   }
@@ -1865,6 +2101,7 @@ mixin _$DashboardEvent {
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) =>
       throw _privateConstructorUsedError;
@@ -1883,6 +2120,7 @@ mixin _$DashboardEvent {
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) =>
@@ -1907,6 +2145,7 @@ mixin _$DashboardEvent {
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) =>
       throw _privateConstructorUsedError;
@@ -1926,6 +2165,7 @@ mixin _$DashboardEvent {
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) =>
@@ -2010,6 +2250,7 @@ class _$_InitialDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return initial();
@@ -2031,6 +2272,7 @@ class _$_InitialDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2061,6 +2303,7 @@ class _$_InitialDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return initial(this);
@@ -2083,6 +2326,7 @@ class _$_InitialDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2159,6 +2403,7 @@ class _$_StartEngineDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return startEngine();
@@ -2180,6 +2425,7 @@ class _$_StartEngineDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2210,6 +2456,7 @@ class _$_StartEngineDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return startEngine(this);
@@ -2232,6 +2479,7 @@ class _$_StartEngineDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2312,6 +2560,7 @@ class _$_TurnEmergencySignalDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return turnEmergencySignal();
@@ -2333,6 +2582,7 @@ class _$_TurnEmergencySignalDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2363,6 +2613,7 @@ class _$_TurnEmergencySignalDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return turnEmergencySignal(this);
@@ -2385,6 +2636,7 @@ class _$_TurnEmergencySignalDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2462,6 +2714,7 @@ class _$_OpenWarningDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return openWarning();
@@ -2483,6 +2736,7 @@ class _$_OpenWarningDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2513,6 +2767,7 @@ class _$_OpenWarningDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return openWarning(this);
@@ -2535,6 +2790,7 @@ class _$_OpenWarningDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2611,6 +2867,7 @@ class _$_OpenDoorsDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return openDoors();
@@ -2632,6 +2889,7 @@ class _$_OpenDoorsDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2662,6 +2920,7 @@ class _$_OpenDoorsDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return openDoors(this);
@@ -2684,6 +2943,7 @@ class _$_OpenDoorsDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2760,6 +3020,7 @@ class _$_OpenTrunkDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return openTrunk();
@@ -2781,6 +3042,7 @@ class _$_OpenTrunkDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2811,6 +3073,7 @@ class _$_OpenTrunkDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return openTrunk(this);
@@ -2833,6 +3096,7 @@ class _$_OpenTrunkDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2913,6 +3177,7 @@ class _$_TurnOnOffHighBeamDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return turnOnOffHighBeam();
@@ -2934,6 +3199,7 @@ class _$_TurnOnOffHighBeamDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -2964,6 +3230,7 @@ class _$_TurnOnOffHighBeamDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return turnOnOffHighBeam(this);
@@ -2986,6 +3253,7 @@ class _$_TurnOnOffHighBeamDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3093,6 +3361,7 @@ class _$_TurnOnOffLowBeamDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return turnOnOffLowBeam(code);
@@ -3114,6 +3383,7 @@ class _$_TurnOnOffLowBeamDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3144,6 +3414,7 @@ class _$_TurnOnOffLowBeamDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return turnOnOffLowBeam(this);
@@ -3166,6 +3437,7 @@ class _$_TurnOnOffLowBeamDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3277,6 +3549,7 @@ class _$_OpenSettingsDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return openSettings(code);
@@ -3298,6 +3571,7 @@ class _$_OpenSettingsDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3328,6 +3602,7 @@ class _$_OpenSettingsDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return openSettings(this);
@@ -3350,6 +3625,7 @@ class _$_OpenSettingsDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3462,6 +3738,7 @@ class _$_DiscardOdometerDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return discardOdometer(type);
@@ -3483,6 +3760,7 @@ class _$_DiscardOdometerDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3513,6 +3791,7 @@ class _$_DiscardOdometerDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return discardOdometer(this);
@@ -3535,6 +3814,7 @@ class _$_DiscardOdometerDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3647,6 +3927,7 @@ class _$_EditOdometerDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return editOdometer(valueOdometer);
@@ -3668,6 +3949,7 @@ class _$_EditOdometerDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3698,6 +3980,7 @@ class _$_EditOdometerDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return editOdometer(this);
@@ -3720,6 +4003,7 @@ class _$_EditOdometerDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3806,6 +4090,7 @@ class _$_SaveValueOdometerDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return saveValueOdometer();
@@ -3827,6 +4112,7 @@ class _$_SaveValueOdometerDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3857,6 +4143,7 @@ class _$_SaveValueOdometerDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return saveValueOdometer(this);
@@ -3879,6 +4166,7 @@ class _$_SaveValueOdometerDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -3956,6 +4244,7 @@ class _$_ViewWeatherDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return viewWeather();
@@ -3977,6 +4266,7 @@ class _$_ViewWeatherDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -4007,6 +4297,7 @@ class _$_ViewWeatherDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return viewWeather(this);
@@ -4029,6 +4320,7 @@ class _$_ViewWeatherDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {
@@ -4041,6 +4333,159 @@ class _$_ViewWeatherDashboardEvent
 
 abstract class _ViewWeatherDashboardEvent implements DashboardEvent {
   const factory _ViewWeatherDashboardEvent() = _$_ViewWeatherDashboardEvent;
+}
+
+/// @nodoc
+abstract class _$ViewDevivesDashboardEventCopyWith<$Res> {
+  factory _$ViewDevivesDashboardEventCopyWith(_ViewDevivesDashboardEvent value,
+          $Res Function(_ViewDevivesDashboardEvent) then) =
+      __$ViewDevivesDashboardEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ViewDevivesDashboardEventCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res>
+    implements _$ViewDevivesDashboardEventCopyWith<$Res> {
+  __$ViewDevivesDashboardEventCopyWithImpl(_ViewDevivesDashboardEvent _value,
+      $Res Function(_ViewDevivesDashboardEvent) _then)
+      : super(_value, (v) => _then(v as _ViewDevivesDashboardEvent));
+
+  @override
+  _ViewDevivesDashboardEvent get _value =>
+      super._value as _ViewDevivesDashboardEvent;
+}
+
+/// @nodoc
+
+class _$_ViewDevivesDashboardEvent
+    with DiagnosticableTreeMixin
+    implements _ViewDevivesDashboardEvent {
+  const _$_ViewDevivesDashboardEvent();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DashboardEvent.viewDevices()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'DashboardEvent.viewDevices'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ViewDevivesDashboardEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() startEngine,
+    required TResult Function() turnEmergencySignal,
+    required TResult Function() openWarning,
+    required TResult Function() openDoors,
+    required TResult Function() openTrunk,
+    required TResult Function() turnOnOffHighBeam,
+    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function(List<int>? code) openSettings,
+    required TResult Function(int? type) discardOdometer,
+    required TResult Function(String? valueOdometer) editOdometer,
+    required TResult Function() saveValueOdometer,
+    required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
+    required TResult Function() sendSosSms,
+  }) {
+    return viewDevices();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? startEngine,
+    TResult Function()? turnEmergencySignal,
+    TResult Function()? openWarning,
+    TResult Function()? openDoors,
+    TResult Function()? openTrunk,
+    TResult Function()? turnOnOffHighBeam,
+    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function(List<int>? code)? openSettings,
+    TResult Function(int? type)? discardOdometer,
+    TResult Function(String? valueOdometer)? editOdometer,
+    TResult Function()? saveValueOdometer,
+    TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
+    TResult Function()? sendSosSms,
+    required TResult orElse(),
+  }) {
+    if (viewDevices != null) {
+      return viewDevices();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialDashboardEvent value) initial,
+    required TResult Function(_StartEngineDashboardEvent value) startEngine,
+    required TResult Function(_TurnEmergencySignalDashboardEvent value)
+        turnEmergencySignal,
+    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
+    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
+    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
+    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
+        turnOnOffHighBeam,
+    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
+        turnOnOffLowBeam,
+    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
+    required TResult Function(_DiscardOdometerDashboardEvent value)
+        discardOdometer,
+    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
+    required TResult Function(_SaveValueOdometerDashboardEvent value)
+        saveValueOdometer,
+    required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
+    required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
+  }) {
+    return viewDevices(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialDashboardEvent value)? initial,
+    TResult Function(_StartEngineDashboardEvent value)? startEngine,
+    TResult Function(_TurnEmergencySignalDashboardEvent value)?
+        turnEmergencySignal,
+    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
+    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
+    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
+    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
+    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
+    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
+    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
+    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
+    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
+    TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
+    TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
+    required TResult orElse(),
+  }) {
+    if (viewDevices != null) {
+      return viewDevices(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ViewDevivesDashboardEvent implements DashboardEvent {
+  const factory _ViewDevivesDashboardEvent() = _$_ViewDevivesDashboardEvent;
 }
 
 /// @nodoc
@@ -4105,6 +4550,7 @@ class _$_SendSosSmsDashboardEvent
     required TResult Function(String? valueOdometer) editOdometer,
     required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
+    required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
     return sendSosSms();
@@ -4126,6 +4572,7 @@ class _$_SendSosSmsDashboardEvent
     TResult Function(String? valueOdometer)? editOdometer,
     TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
+    TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
@@ -4156,6 +4603,7 @@ class _$_SendSosSmsDashboardEvent
     required TResult Function(_SaveValueOdometerDashboardEvent value)
         saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
+    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
   }) {
     return sendSosSms(this);
@@ -4178,6 +4626,7 @@ class _$_SendSosSmsDashboardEvent
     TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
     TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
+    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
     required TResult orElse(),
   }) {

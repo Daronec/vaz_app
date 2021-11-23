@@ -76,7 +76,7 @@ class DashboardBody extends StatelessWidget {
                       BlocProvider.of<DashboardBloc>(context)
                         ..add(DashboardEvent.turnEmergencySignal()),
                   openWarning: () => BlocProvider.of<DashboardBloc>(context)
-                    ..add(DashboardEvent.openWarning()),
+                    ..add(DashboardEvent.viewDevices()),
                 ),
                 CenterPanel(
                   speed: 60,

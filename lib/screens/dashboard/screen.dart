@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:vaz_mobile/screens/dashboard/_bloc/dashboard_bloc.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/dashboard_body.dart';
+import 'package:vaz_mobile/screens/dashboard/_widgets/devices_dialog.dart';
 import 'package:vaz_mobile/screens/dashboard/_widgets/weather_dialog.dart';
 import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 import 'package:vaz_mobile/style/app_colors.dart';
@@ -25,6 +26,10 @@ class DashboardScreen extends StatelessWidget {
               body: BlocConsumer<DashboardBloc, DashboardState>(
                 listener: (context, state) {
                   state.maybeMap(
+                    viewDevices: (_devices) => mainShowDialog(
+                      context,
+                      DevicesDialog(devices: _devices.devices!),
+                    ),
                     viewWeather: (_weather) => mainShowDialog(
                       context,
                       WeatherDialog(

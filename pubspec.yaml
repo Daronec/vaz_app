@@ -36,7 +36,7 @@ dependencies:
   flutter_speedometer: ^1.0.2
   shared_preferences: ^2.0.6
   #  package_info: ^0.4.3+4
-  #  usb_serial: ^0.3.0
+  usb_serial: ^0.3.0
   mask_text_input_formatter: 2.0.0
   intl: 0.17.0
   rxdart: 0.27.1
