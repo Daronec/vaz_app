@@ -22,6 +22,7 @@ class DioSettings {
 
   void initialSettings() {
     Interceptors interceptors = dio.interceptors;
+    interceptors.requestLock.lock();
     interceptors.clear();
     interceptors.add(
       InterceptorsWrapper(
@@ -87,5 +88,6 @@ class DioSettings {
         responseHeader: true,
       ));
     }
+    interceptors.requestLock.unlock();
   }
 }
