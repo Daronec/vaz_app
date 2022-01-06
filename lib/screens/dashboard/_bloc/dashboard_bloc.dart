@@ -66,6 +66,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   int? humidity = 0;
   List<UsbDevice> devices = [];
   UsbPort? port;
+  String status = "Idle";
+  Transaction<String>? _transaction;
+  UsbDevice? device;
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
@@ -91,58 +94,24 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   Stream<DashboardState> _mapInitialDashboardEvent(
       _InitialDashboardEvent event) async* {
     yield const DashboardState.loading();
-
     try {
       devices = await UsbSerial.listDevices();
-      print(devices);
-
-      if (devices.length == 0) {
-        return;
+      if (devices.length > 0) {
+        final result = await connectTo(devices[0]);
+        if (result) {
+          yield DashboardState.success(message: status);
+          // await port!.write(Uint8List.fromList([0x10, 0x00]));
+        } else {
+          yield DashboardState.error(message: status);
+        }
+      } else {
+        yield DashboardState.error(message: 'Устройство не обнаружено');
       }
-
-      port = (await devices[0].create())!;
-
-      bool openResult = await port!.open();
-      if (!openResult) {
-        print("Failed to open");
-        return;
-      }
-
-      await port!.setDTR(true);
-      await port!.setRTS(true);
-
-      port!.setPortParameters(
-        115200,
-        UsbPort.DATABITS_8,
-        UsbPort.STOPBITS_1,
-        UsbPort.PARITY_NONE,
-      );
-
-      // print first result and close port.
-      port!.inputStream!.listen((Uint8List event) {
-        print(event);
-        port!.close();
-      });
-
-      await port!.write(Uint8List.fromList([0x10, 0x00]));
-
-      final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-      lat = position.latitude;
-      lon = position.longitude;
-      final weather = await repository.weather(
-        position.latitude,
-        position.longitude,
-      );
-      tempLocation = weather.main!.temp;
-      nameLocation = weather.name;
-      pressure = weather.main!.pressure;
-      humidity = weather.main!.humidity;
-      speedWind = weather.wind!.speed;
+      yield const DashboardState.loading();
+      getWeather();
+      getSpeed();
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       voltage = 12.6;
-      outsideTemperature = weather.main!.temp! - 273.15;
       temperatureInCar = 28.3;
       fuelLevel = 3;
       isPowerEngine = false;
@@ -162,7 +131,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         totalValueOdometer = 0;
       }
       partValueOdometer = 56;
-      speed = 60;
     } catch (ex) {
       yield DashboardState.error(message: requestError(ex));
     }
@@ -190,9 +158,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   Stream<DashboardState> _mapStartEngineDashboardEvent(
       _StartEngineDashboardEvent event) async* {
     yield DashboardState.loading();
-    isPowerEngine = !isPowerEngine;
-    String command = 'start';
-    await port!.write(Uint8List.fromList(command.codeUnits));
+    if (port != null) {
+      isPowerEngine = !isPowerEngine;
+      String command = 'start';
+      await port!.write(Uint8List.fromList(command.codeUnits));
+    }
     yield DashboardState.data(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -571,81 +541,74 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
   }
 
-// Future<bool> _connectTo(device) async {
-//   _serialData.clear();
-//
-//   if (_subscription != null) {
-//     _subscription!.cancel();
-//     _subscription = null;
-//   }
-//
-//   if (_transaction != null) {
-//     _transaction!.dispose();
-//     _transaction = null;
-//   }
-//
-//   if (_port != null) {
-//     _port!.close();
-//     _port = null;
-//   }
-//
-//   if (device == null) {
-//     _device = null;
-//     _status = "Disconnected";
-//     return true;
-//   }
-//
-//   _port = await device.create();
-//   if (await (_port!.open()) != true) {
-//     _status = "Failed to open port";
-//     return false;
-//   }
-//   _device = device;
-//
-//   await _port!.setDTR(true);
-//   await _port!.setRTS(true);
-//   await _port!.setPortParameters(115200, UsbPort.DATABITS_8, UsbPort.STOPBITS_1, UsbPort.PARITY_NONE);
-//
-//   _transaction = Transaction.stringTerminated(_port!.inputStream as Stream<Uint8List>, Uint8List.fromList([13, 10]));
-//
-//   _subscription = _transaction!.stream.listen((String line) {
-//     _serialData.add(Text(line));
-//     if (_serialData.length > 20) {
-//       _serialData.removeAt(0);
-//     }
-//   });
-//
-//   _status = "Connected";
-//   return true;
-// }
-//
-// void _getPorts() async {
-//   _ports = [];
-//
-//   List<UsbDevice> devices = await UsbSerial.listDevices();
-//   if (!devices.contains(_device)) {
-//     _connectTo(null);
-//   }
-//   print(devices);
-//
-//   // devices.forEach((device) {
-//   //   _ports.add(ListTile(
-//   //       leading: Icon(Icons.usb),
-//   //       title: Text(device.productName!),
-//   //       subtitle: Text(device.manufacturerName!),
-//   //       trailing: ElevatedButton(
-//   //         child: Text(_device == device ? "Disconnect" : "Connect"),
-//   //         onPressed: () {
-//   //           _connectTo(_device == device ? null : device).then((res) {
-//   //             _getPorts();
-//   //           });
-//   //         },
-//   //       )));
-//   // });
-//   //
-//   // print(_ports);
-// }
+  Future<bool> connectTo(device) async {
+    if (_transaction != null) {
+      _transaction!.dispose();
+      _transaction = null;
+    }
 
+    if (port != null) {
+      port!.close();
+      port = null;
+    }
+
+    if (device == null) {
+      device = null;
+      status = "Disconnected";
+      return true;
+    }
+
+    port = await device.create();
+    if (await (port!.open()) != true) {
+      status = "Проблема с подключением устройства";
+      return false;
+    }
+    device = device;
+
+    await port!.setDTR(true);
+    await port!.setRTS(true);
+    await port!.setPortParameters(
+      115200,
+      UsbPort.DATABITS_8,
+      UsbPort.STOPBITS_1,
+      UsbPort.PARITY_NONE,
+    );
+
+    _transaction = Transaction.stringTerminated(
+      port!.inputStream as Stream<Uint8List>,
+      Uint8List.fromList([13, 10]),
+    );
+
+    status = "Connected";
+    return true;
+  }
+
+  getWeather() async {
+    final position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    lat = position.latitude;
+    lon = position.longitude;
+    final weather = await repository.weather(
+      position.latitude,
+      position.longitude,
+    );
+    tempLocation = weather.main!.temp;
+    nameLocation = weather.name;
+    pressure = weather.main!.pressure;
+    humidity = weather.main!.humidity;
+    speedWind = weather.wind!.speed;
+    outsideTemperature = weather.main!.temp! - 273.15;
+  }
+
+  getSpeed() async {
+    Geolocator.getPositionStream(
+      desiredAccuracy: LocationAccuracy.high,
+      distanceFilter: 10,
+    ).listen((position) {
+      speed = position.speed.toInt(); // this is your speed
+    });
+  }
 }
 
 @freezed
