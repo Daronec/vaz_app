@@ -90,6 +90,7 @@ class _EditOdometerDialog extends StatelessWidget {
                     onPressed: () {
                       onSave(controller.text);
                       Navigator.pop(context);
+                      controller.clear();
                     },
                     style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,

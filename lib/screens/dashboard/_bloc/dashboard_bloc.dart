@@ -106,7 +106,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         yield DashboardState.error(message: 'Устройство не обнаружено');
       }
       yield const DashboardState.loading();
-      getWeather();
+      await getWeather();
       voltage = 12.6;
       temperatureInCar = 28.3;
       fuelLevel = 3;
@@ -440,11 +440,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     }
 
     yield DashboardState.viewWeather(
-      name: nameLocation,
-      temp: tempLocation,
-      pressure: pressure,
-      speedWind: speedWind,
-      humidity: humidity,
+      name: nameLocation!,
+      temp: tempLocation!,
+      pressure: pressure!,
+      speedWind: speedWind!,
+      humidity: humidity!,
     );
     yield DashboardState.data(
       voltage: voltage,
@@ -572,7 +572,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     return true;
   }
 
-  getWeather() async {
+  Future<void> getWeather() async {
     final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
@@ -600,11 +600,11 @@ class DashboardState with _$DashboardState {
   const factory DashboardState.editOdometer() = _EditOdometerDashboardState;
 
   const factory DashboardState.viewWeather({
-    final String? name,
-    final double? temp,
-    final int? pressure,
-    final double? speedWind,
-    final int? humidity,
+    final String name,
+    final double temp,
+    final int pressure,
+    final double speedWind,
+    final int humidity,
   }) = _ViewWeatherDashboardState;
 
   const factory DashboardState.viewDevices({
@@ -612,27 +612,27 @@ class DashboardState with _$DashboardState {
   }) = _ViewDevicesDashboardState;
 
   const factory DashboardState.data({
-    final double? voltage,
-    final double? outsideTemperature,
-    final double? temperatureInCar,
-    final int? fuelLevel,
-    final bool? isPowerEngine,
-    final bool? isEmergencySignal,
-    final List<int>? code,
-    final int? turnoverEngine,
-    final double? fuelConsumption,
-    final bool? isOpenDoors,
-    final bool? isOpenTrunk,
-    final bool? isOnOffLowBeam,
-    final bool? isOnOffHighBeam,
-    final double? temperatureEngine,
-    final int? totalValueOdometer,
-    final int? partValueOdometer,
-    final int? speed,
+    final double voltage,
+    final double outsideTemperature,
+    final double temperatureInCar,
+    final int fuelLevel,
+    final bool isPowerEngine,
+    final bool isEmergencySignal,
+    final List<int> code,
+    final int turnoverEngine,
+    final double fuelConsumption,
+    final bool isOpenDoors,
+    final bool isOpenTrunk,
+    final bool isOnOffLowBeam,
+    final bool isOnOffHighBeam,
+    final double temperatureEngine,
+    final int totalValueOdometer,
+    final int partValueOdometer,
+    final int speed,
   }) = _DataDashboardState;
 
   const factory DashboardState.error({
-    final String? message,
+    final String message,
   }) = _ErrorDashboardState;
 
   const factory DashboardState.success({
@@ -659,19 +659,19 @@ class DashboardEvent with _$DashboardEvent {
       _TurnOnOffHighBeamDashboardEvent;
 
   const factory DashboardEvent.turnOnOffLowBeam({
-    final List<int>? code,
+    final List<int> code,
   }) = _TurnOnOffLowBeamDashboardEvent;
 
   const factory DashboardEvent.openSettings({
-    final List<int>? code,
+    final List<int> code,
   }) = _OpenSettingsDashboardEvent;
 
   const factory DashboardEvent.discardOdometer({
-    final int? type,
+    final int type,
   }) = _DiscardOdometerDashboardEvent;
 
   const factory DashboardEvent.editOdometer({
-    final String? valueOdometer,
+    final String valueOdometer,
   }) = _EditOdometerDashboardEvent;
 
   const factory DashboardEvent.saveValueOdometer() =
