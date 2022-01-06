@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaz_mobile/style/app_colors.dart';
 
 class AppTextStyles {
   static final subTitle = TextStyle(
@@ -6,4 +7,9 @@ class AppTextStyles {
     fontSize: 14,
   );
 
+  static final header = TextStyle(
+    fontWeight: FontWeight.w300,
+    fontSize: 150,
+    color: AppColors.light_yellow,
+  );
 }

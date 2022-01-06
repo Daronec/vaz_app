@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:core';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
@@ -109,8 +107,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       }
       yield const DashboardState.loading();
       getWeather();
-      getSpeed();
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
       voltage = 12.6;
       temperatureInCar = 28.3;
       fuelLevel = 3;
@@ -124,13 +120,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam = false;
       isOnOffHighBeam = false;
       temperatureEngine = 87.0;
-      final prefs = _prefs.getString('totalValueOdometer');
-      if (prefs != null) {
-        totalValueOdometer = int.tryParse(prefs)!;
-      } else {
-        totalValueOdometer = 0;
-      }
-      partValueOdometer = 56;
     } catch (ex) {
       yield DashboardState.error(message: requestError(ex));
     }
@@ -599,15 +588,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     humidity = weather.main!.humidity;
     speedWind = weather.wind!.speed;
     outsideTemperature = weather.main!.temp! - 273.15;
-  }
-
-  getSpeed() async {
-    Geolocator.getPositionStream(
-      desiredAccuracy: LocationAccuracy.high,
-      distanceFilter: 10,
-    ).listen((position) {
-      speed = position.speed.toInt(); // this is your speed
-    });
   }
 }
 

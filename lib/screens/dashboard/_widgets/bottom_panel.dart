@@ -38,10 +38,7 @@ class BottomPanel extends StatelessWidget {
                   [
                     OutlinedButton(
                       onPressed: () {
-                        BlocProvider.of<DashboardBloc>(context)
-                          ..add(
-                            DashboardEvent.discardOdometer(type: 0),
-                          );
+                        vm.clearTimeDistance();
                         Navigator.pop(context);
                       },
                       style: OutlinedButton.styleFrom(
@@ -58,30 +55,38 @@ class BottomPanel extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: RichText(
-                  text: TextSpan(
-                    text: partValueOdometer.toString(),
-                    style: AppTextStyles.subTitle.copyWith(
-                      color: AppColors.light_yellow,
-                      fontSize: 36,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' km',
-                        style: AppTextStyles.subTitle.copyWith(
-                          color: AppColors.light_yellow,
-                          fontSize: 22,
+                child: StreamBuilder<double>(
+                    stream: vm.getDistance,
+                    initialData: 0.0,
+                    builder: (context, snapshot) {
+                      return RichText(
+                        text: TextSpan(
+                          text: snapshot.data.toString(),
+                          style: AppTextStyles.subTitle.copyWith(
+                            color: AppColors.light_yellow,
+                            fontSize: 36,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' km',
+                              style: AppTextStyles.subTitle.copyWith(
+                                color: AppColors.light_yellow,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      );
+                    }),
               ),
             ),
           ),
           IconButton(
             onPressed: () => sos!(),
-            icon: SvgPicture.asset(MainIcons.sos, color: AppColors.red,),
+            icon: SvgPicture.asset(
+              MainIcons.sos,
+              color: AppColors.red,
+            ),
           ),
           Expanded(
             child: Center(
@@ -91,10 +96,7 @@ class BottomPanel extends StatelessWidget {
                   [
                     OutlinedButton(
                       onPressed: () {
-                        BlocProvider.of<DashboardBloc>(context)
-                          ..add(
-                            DashboardEvent.discardOdometer(type: 1),
-                          );
+                        vm.clearTimeDistance();
                         Navigator.pop(context);
                       },
                       style: OutlinedButton.styleFrom(
@@ -142,24 +144,28 @@ class BottomPanel extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: RichText(
-                  text: TextSpan(
-                    text: totalValueOdometer.toString(),
-                    style: AppTextStyles.subTitle.copyWith(
-                      color: AppColors.light_yellow,
-                      fontSize: 36,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: ' km',
-                        style: AppTextStyles.subTitle.copyWith(
-                          color: AppColors.light_yellow,
-                          fontSize: 22,
+                child: StreamBuilder<double>(
+                    stream: vm.getTimeDistance,
+                    builder: (context, snapshot) {
+                      return RichText(
+                        text: TextSpan(
+                          text: snapshot.data.toString(),
+                          style: AppTextStyles.subTitle.copyWith(
+                            color: AppColors.light_yellow,
+                            fontSize: 36,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: ' km',
+                              style: AppTextStyles.subTitle.copyWith(
+                                color: AppColors.light_yellow,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      );
+                    }),
               ),
             ),
           ),

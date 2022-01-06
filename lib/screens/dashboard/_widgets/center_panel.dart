@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaz_mobile/screens/dashboard/_widgets/speedometer/speedometer.dart';
+import 'package:provider/provider.dart';
+import 'package:vaz_mobile/screens/dashboard/view_model.dart';
 import 'package:vaz_mobile/style/app_colors.dart';
 import 'package:vaz_mobile/style/app_text_style.dart';
 
@@ -17,6 +18,7 @@ class CenterPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<DashboardViewModel>(context);
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
@@ -54,25 +56,14 @@ class CenterPanel extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Speedometer(
-              size: 200,
-              minValue: 0,
-              maxValue: 180,
-              currentValue: speed,
-              warningValue: 150,
-              displayText: 'km/h',
-              meterColor: AppColors.light_yellow,
-              warningColor: AppColors.red,
-              kimColor: AppColors.dark_grey,
-              displayNumericStyle: AppTextStyles.subTitle.copyWith(
-                  color: AppColors.light_yellow,
-                  fontSize: 48,
-                  fontWeight: FontWeight.w500),
-              displayTextStyle: AppTextStyles.subTitle.copyWith(
-                color: AppColors.red,
-              ),
-              backgroundColor: AppColors.background_panel,
-            ),
+            StreamBuilder<double>(
+                stream: vm.getSpeed,
+                builder: (context, snapshot) {
+                  return Text(
+                    snapshot.data.toString(),
+                    style: AppTextStyles.header,
+                  );
+                }),
             const Spacer(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
