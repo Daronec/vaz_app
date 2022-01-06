@@ -14,6 +14,7 @@ class FuelLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SvgPicture.asset(
@@ -28,9 +29,7 @@ class FuelLevel extends StatelessWidget {
           10,
           (index) => Container(
             margin: const EdgeInsets.only(right: 2),
-            color: level! >= index
-                ? getColors(level!)
-                : AppColors.grey,
+            color: level! >= index ? getColors(level!) : AppColors.grey,
             width: 2,
             height: index * 3 + 2,
           ),
@@ -40,7 +39,7 @@ class FuelLevel extends StatelessWidget {
   }
 }
 
-Color getColors (int level) {
+Color getColors(int level) {
   Color color;
   if (level == 0) {
     color = AppColors.red;

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rxdart/rxdart.dart';
@@ -7,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardViewModel extends ChangeNotifier {
   DashboardViewModel() {
-    addTextFieldListener();
     getPathTraveled();
     updateSpeed();
   }
@@ -21,56 +21,76 @@ class DashboardViewModel extends ChangeNotifier {
 
   double lat = 0.0;
   double lon = 0.0;
+  late LocationSettings locationSettings;
+  late LocationSettings locationSettingsWithSpeed;
 
   final _distance = BehaviorSubject.seeded(0.0);
   final _timeDistance = BehaviorSubject.seeded(0.0);
-  final _speed = BehaviorSubject.seeded(0.0);
+  final _speed = BehaviorSubject.seeded(0);
 
   Stream<double> get getDistance => _distance.stream;
+
   Stream<double> get getTimeDistance => _timeDistance.stream;
-  Stream<double> get getSpeed => _speed.stream;
 
-  void addTextFieldListener() async {
-    odometerTextController.addListener(
-      () {
-        if (odometerTextController.text.length == 6 && canUnfocus) {
-          canUnfocus = false;
-          odometerFocusNode.unfocus();
-        } else if (odometerTextController.text.length == 5 && !canUnfocus) {
-          canUnfocus = true;
-        }
-      },
-    );
+  Stream<int> get getSpeed => _speed.stream;
 
-    odometerFocusNode.addListener(() {
-      if (odometerTextController.text.isEmpty) {
-        odometerTextController.text = '0';
-      }
-    });
+  void editTimeOdometer(String value) async {
+    _timeDistance.add(double.tryParse(value)!);
   }
 
   void getPathTraveled() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      locationSettings = AndroidSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+        forceLocationManager: true,
+        intervalDuration: const Duration(seconds: 10),
+      );
+      locationSettingsWithSpeed = AndroidSettings(
+        accuracy: LocationAccuracy.high,
+        forceLocationManager: true,
+        intervalDuration: const Duration(milliseconds: 300),
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.macOS) {
+      locationSettings = AppleSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+        pauseLocationUpdatesAutomatically: true,
+      );
+      locationSettingsWithSpeed = AppleSettings(
+        accuracy: LocationAccuracy.high,
+      );
+    } else {
+      locationSettings = LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+      );
+      locationSettingsWithSpeed = AndroidSettings(
+        accuracy: LocationAccuracy.high,
+        forceLocationManager: true,
+        intervalDuration: const Duration(milliseconds: 300),
+      );
+    }
     List<dynamic> data = [];
-    Geolocator.getPositionStream(
-      desiredAccuracy: LocationAccuracy.high,
-      distanceFilter: 10,
-    ).listen((position) {
-      lat = position.latitude; // this is your speed
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((position) {
+      lat = position.latitude;
       lon = position.longitude;
       data.add({
         "lat": lat,
         "lng": lon,
-      }); // this is your speed
+      }); // this
+      print(data);
     });
-    var partValueOdometer = 0.0;
+    var dist = 0.0;
     for (var i = 0; i < data.length - 1; i++) {
-      partValueOdometer += calculateDistance(data[i]["lat"], data[i]["lng"],
-              data[i + 1]["lat"], data[i + 1]["lng"])
-          .toInt();
-      _distance.add(partValueOdometer);
-      _timeDistance.add(partValueOdometer);
-      _prefs.setDouble("distance", partValueOdometer);
+      dist += calculateDistance(data[i]["lat"], data[i]["lng"],
+          data[i + 1]["lat"], data[i + 1]["lng"]);
+      _distance.add(dist);
+      _timeDistance.add(dist);
+      _prefs.setDouble("distance", dist);
     }
   }
 
@@ -92,11 +112,11 @@ class DashboardViewModel extends ChangeNotifier {
   }
 
   void updateSpeed() async {
-    Geolocator.getPositionStream(
-      desiredAccuracy: LocationAccuracy.high,
-      distanceFilter: 10,
-    ).listen((position) {
-      _speed.add(position.speed); // this is your speed
+    _speed.add(0);
+    Geolocator.getPositionStream(locationSettings: locationSettingsWithSpeed)
+        .listen((position) {
+      print(position.speed.round());
+      _speed.add((position.speed * 3.6).round()); // this is your speed
     });
   }
 }

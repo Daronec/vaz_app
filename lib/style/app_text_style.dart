@@ -9,7 +9,7 @@ class AppTextStyles {
 
   static final header = TextStyle(
     fontWeight: FontWeight.w300,
-    fontSize: 150,
+    fontSize: 180,
     color: AppColors.light_yellow,
   );
 }
