@@ -27,6 +27,7 @@ class DashboardBody extends StatelessWidget {
   final double? temperatureEngine;
   final int? partValueOdometer;
   final int? totalValueOdometer;
+  final int? speed;
 
   const DashboardBody({
     Key? key,
@@ -46,6 +47,7 @@ class DashboardBody extends StatelessWidget {
     this.temperatureEngine,
     this.partValueOdometer,
     this.totalValueOdometer,
+    this.speed,
   }) : super(key: key);
 
   @override
@@ -79,7 +81,7 @@ class DashboardBody extends StatelessWidget {
                     ..add(DashboardEvent.viewDevices()),
                 ),
                 CenterPanel(
-                  speed: 60,
+                  speed: speed,
                   turnoverEngine: turnoverEngine,
                   fuelConsumption: fuelConsumption,
                 ),

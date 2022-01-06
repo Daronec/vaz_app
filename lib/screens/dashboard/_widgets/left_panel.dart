@@ -33,7 +33,7 @@ class LeftPanel extends StatelessWidget {
             on: isPowerEngine!,
           ),
           EmergencyButton(
-            onTap: () => turnEmergencySignal!(),
+            onTap: turnEmergencySignal!,
             on: isEmergencySignal!,
           ),
           SystemAlarm(

@@ -72,6 +72,7 @@ class DashboardScreen extends StatelessWidget {
                       temperatureEngine: _data.temperatureEngine,
                       partValueOdometer: _data.partValueOdometer,
                       totalValueOdometer: _data.totalValueOdometer,
+                      speed: _data.speed,
                     ),
                     orElse: () => SizedBox.shrink(),
                   );
