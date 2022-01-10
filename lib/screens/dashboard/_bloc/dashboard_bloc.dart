@@ -108,7 +108,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         await Geolocator.openLocationSettings();
       }
       yield const DashboardState.loading();
-      await getWeather();
+      getWeather();
+      getData();
       voltage = 12.6;
       temperatureInCar = 28.3;
       fuelLevel = 3;
@@ -646,24 +647,9 @@ class DashboardEvent with _$DashboardEvent {
   const factory DashboardEvent.turnOnOffLowBeam() =
       _TurnOnOffLowBeamDashboardEvent;
 
-  const factory DashboardEvent.turnOnOffLowBeam({
-    final List<int> code,
-  }) = _TurnOnOffLowBeamDashboardEvent;
-
   const factory DashboardEvent.openSettings({
-    final List<int> code,
+    final List<int>? code,
   }) = _OpenSettingsDashboardEvent;
-
-  const factory DashboardEvent.discardOdometer({
-    final int type,
-  }) = _DiscardOdometerDashboardEvent;
-
-  const factory DashboardEvent.editOdometer({
-    final String valueOdometer,
-  }) = _EditOdometerDashboardEvent;
-
-  const factory DashboardEvent.saveValueOdometer() =
-      _SaveValueOdometerDashboardEvent;
 
   const factory DashboardEvent.viewWeather() = _ViewWeatherDashboardEvent;
 
