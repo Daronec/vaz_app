@@ -43,9 +43,11 @@ class _$DashboardStateTearOff {
     );
   }
 
-  _ViewDevicesDashboardState viewDevices({List<UsbDevice>? devices}) {
+  _ViewDevicesDashboardState viewDevices(
+      {List<UsbDevice>? devices, String? errors}) {
     return _ViewDevicesDashboardState(
       devices: devices,
+      errors: errors,
     );
   }
 
@@ -56,7 +58,7 @@ class _$DashboardStateTearOff {
       int? fuelLevel,
       bool? isPowerEngine,
       bool? isEmergencySignal,
-      List<int>? code,
+      String? errors,
       int? turnoverEngine,
       double? fuelConsumption,
       bool? isOpenDoors,
@@ -64,9 +66,7 @@ class _$DashboardStateTearOff {
       bool? isOnOffLowBeam,
       bool? isOnOffHighBeam,
       double? temperatureEngine,
-      int? totalValueOdometer,
-      int? partValueOdometer,
-      int? speed}) {
+      String? status}) {
     return _DataDashboardState(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -74,7 +74,7 @@ class _$DashboardStateTearOff {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -82,9 +82,7 @@ class _$DashboardStateTearOff {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -114,7 +112,8 @@ mixin _$DashboardState {
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -122,7 +121,7 @@ mixin _$DashboardState {
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -130,9 +129,7 @@ mixin _$DashboardState {
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -146,7 +143,7 @@ mixin _$DashboardState {
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -154,7 +151,7 @@ mixin _$DashboardState {
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -162,9 +159,7 @@ mixin _$DashboardState {
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -269,7 +264,8 @@ class _$_InitialDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -277,7 +273,7 @@ class _$_InitialDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -285,9 +281,7 @@ class _$_InitialDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -304,7 +298,7 @@ class _$_InitialDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -312,7 +306,7 @@ class _$_InitialDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -320,9 +314,7 @@ class _$_InitialDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -427,7 +419,8 @@ class _$_LoadingDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -435,7 +428,7 @@ class _$_LoadingDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -443,9 +436,7 @@ class _$_LoadingDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -462,7 +453,7 @@ class _$_LoadingDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -470,7 +461,7 @@ class _$_LoadingDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -478,9 +469,7 @@ class _$_LoadingDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -587,7 +576,8 @@ class _$_EditOdometerDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -595,7 +585,7 @@ class _$_EditOdometerDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -603,9 +593,7 @@ class _$_EditOdometerDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -622,7 +610,7 @@ class _$_EditOdometerDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -630,7 +618,7 @@ class _$_EditOdometerDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -638,9 +626,7 @@ class _$_EditOdometerDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -829,7 +815,8 @@ class _$_ViewWeatherDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -837,7 +824,7 @@ class _$_ViewWeatherDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -845,9 +832,7 @@ class _$_ViewWeatherDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -864,7 +849,7 @@ class _$_ViewWeatherDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -872,7 +857,7 @@ class _$_ViewWeatherDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -880,9 +865,7 @@ class _$_ViewWeatherDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -952,7 +935,7 @@ abstract class _$ViewDevicesDashboardStateCopyWith<$Res> {
   factory _$ViewDevicesDashboardStateCopyWith(_ViewDevicesDashboardState value,
           $Res Function(_ViewDevicesDashboardState) then) =
       __$ViewDevicesDashboardStateCopyWithImpl<$Res>;
-  $Res call({List<UsbDevice>? devices});
+  $Res call({List<UsbDevice>? devices, String? errors});
 }
 
 /// @nodoc
@@ -970,12 +953,17 @@ class __$ViewDevicesDashboardStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? devices = freezed,
+    Object? errors = freezed,
   }) {
     return _then(_ViewDevicesDashboardState(
       devices: devices == freezed
           ? _value.devices
           : devices // ignore: cast_nullable_to_non_nullable
               as List<UsbDevice>?,
+      errors: errors == freezed
+          ? _value.errors
+          : errors // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -985,14 +973,16 @@ class __$ViewDevicesDashboardStateCopyWithImpl<$Res>
 class _$_ViewDevicesDashboardState
     with DiagnosticableTreeMixin
     implements _ViewDevicesDashboardState {
-  const _$_ViewDevicesDashboardState({this.devices});
+  const _$_ViewDevicesDashboardState({this.devices, this.errors});
 
   @override
   final List<UsbDevice>? devices;
+  @override
+  final String? errors;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DashboardState.viewDevices(devices: $devices)';
+    return 'DashboardState.viewDevices(devices: $devices, errors: $errors)';
   }
 
   @override
@@ -1000,7 +990,8 @@ class _$_ViewDevicesDashboardState
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'DashboardState.viewDevices'))
-      ..add(DiagnosticsProperty('devices', devices));
+      ..add(DiagnosticsProperty('devices', devices))
+      ..add(DiagnosticsProperty('errors', errors));
   }
 
   @override
@@ -1008,12 +999,17 @@ class _$_ViewDevicesDashboardState
     return identical(this, other) ||
         (other is _ViewDevicesDashboardState &&
             (identical(other.devices, devices) ||
-                const DeepCollectionEquality().equals(other.devices, devices)));
+                const DeepCollectionEquality()
+                    .equals(other.devices, devices)) &&
+            (identical(other.errors, errors) ||
+                const DeepCollectionEquality().equals(other.errors, errors)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(devices);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(devices) ^
+      const DeepCollectionEquality().hash(errors);
 
   @JsonKey(ignore: true)
   @override
@@ -1031,7 +1027,8 @@ class _$_ViewDevicesDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1039,7 +1036,7 @@ class _$_ViewDevicesDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1047,14 +1044,12 @@ class _$_ViewDevicesDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
   }) {
-    return viewDevices(devices);
+    return viewDevices(devices, errors);
   }
 
   @override
@@ -1066,7 +1061,7 @@ class _$_ViewDevicesDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1074,7 +1069,7 @@ class _$_ViewDevicesDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1082,16 +1077,14 @@ class _$_ViewDevicesDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
     required TResult orElse(),
   }) {
     if (viewDevices != null) {
-      return viewDevices(devices);
+      return viewDevices(devices, errors);
     }
     return orElse();
   }
@@ -1132,10 +1125,12 @@ class _$_ViewDevicesDashboardState
 }
 
 abstract class _ViewDevicesDashboardState implements DashboardState {
-  const factory _ViewDevicesDashboardState({List<UsbDevice>? devices}) =
-      _$_ViewDevicesDashboardState;
+  const factory _ViewDevicesDashboardState(
+      {List<UsbDevice>? devices,
+      String? errors}) = _$_ViewDevicesDashboardState;
 
   List<UsbDevice>? get devices => throw _privateConstructorUsedError;
+  String? get errors => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ViewDevicesDashboardStateCopyWith<_ViewDevicesDashboardState>
       get copyWith => throw _privateConstructorUsedError;
@@ -1153,7 +1148,7 @@ abstract class _$DataDashboardStateCopyWith<$Res> {
       int? fuelLevel,
       bool? isPowerEngine,
       bool? isEmergencySignal,
-      List<int>? code,
+      String? errors,
       int? turnoverEngine,
       double? fuelConsumption,
       bool? isOpenDoors,
@@ -1161,9 +1156,7 @@ abstract class _$DataDashboardStateCopyWith<$Res> {
       bool? isOnOffLowBeam,
       bool? isOnOffHighBeam,
       double? temperatureEngine,
-      int? totalValueOdometer,
-      int? partValueOdometer,
-      int? speed});
+      String? status});
 }
 
 /// @nodoc
@@ -1185,7 +1178,7 @@ class __$DataDashboardStateCopyWithImpl<$Res>
     Object? fuelLevel = freezed,
     Object? isPowerEngine = freezed,
     Object? isEmergencySignal = freezed,
-    Object? code = freezed,
+    Object? errors = freezed,
     Object? turnoverEngine = freezed,
     Object? fuelConsumption = freezed,
     Object? isOpenDoors = freezed,
@@ -1193,9 +1186,7 @@ class __$DataDashboardStateCopyWithImpl<$Res>
     Object? isOnOffLowBeam = freezed,
     Object? isOnOffHighBeam = freezed,
     Object? temperatureEngine = freezed,
-    Object? totalValueOdometer = freezed,
-    Object? partValueOdometer = freezed,
-    Object? speed = freezed,
+    Object? status = freezed,
   }) {
     return _then(_DataDashboardState(
       voltage: voltage == freezed
@@ -1222,10 +1213,10 @@ class __$DataDashboardStateCopyWithImpl<$Res>
           ? _value.isEmergencySignal
           : isEmergencySignal // ignore: cast_nullable_to_non_nullable
               as bool?,
-      code: code == freezed
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+      errors: errors == freezed
+          ? _value.errors
+          : errors // ignore: cast_nullable_to_non_nullable
+              as String?,
       turnoverEngine: turnoverEngine == freezed
           ? _value.turnoverEngine
           : turnoverEngine // ignore: cast_nullable_to_non_nullable
@@ -1254,18 +1245,10 @@ class __$DataDashboardStateCopyWithImpl<$Res>
           ? _value.temperatureEngine
           : temperatureEngine // ignore: cast_nullable_to_non_nullable
               as double?,
-      totalValueOdometer: totalValueOdometer == freezed
-          ? _value.totalValueOdometer
-          : totalValueOdometer // ignore: cast_nullable_to_non_nullable
-              as int?,
-      partValueOdometer: partValueOdometer == freezed
-          ? _value.partValueOdometer
-          : partValueOdometer // ignore: cast_nullable_to_non_nullable
-              as int?,
-      speed: speed == freezed
-          ? _value.speed
-          : speed // ignore: cast_nullable_to_non_nullable
-              as int?,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1282,7 +1265,7 @@ class _$_DataDashboardState
       this.fuelLevel,
       this.isPowerEngine,
       this.isEmergencySignal,
-      this.code,
+      this.errors,
       this.turnoverEngine,
       this.fuelConsumption,
       this.isOpenDoors,
@@ -1290,9 +1273,7 @@ class _$_DataDashboardState
       this.isOnOffLowBeam,
       this.isOnOffHighBeam,
       this.temperatureEngine,
-      this.totalValueOdometer,
-      this.partValueOdometer,
-      this.speed});
+      this.status});
 
   @override
   final double? voltage;
@@ -1307,7 +1288,7 @@ class _$_DataDashboardState
   @override
   final bool? isEmergencySignal;
   @override
-  final List<int>? code;
+  final String? errors;
   @override
   final int? turnoverEngine;
   @override
@@ -1323,15 +1304,11 @@ class _$_DataDashboardState
   @override
   final double? temperatureEngine;
   @override
-  final int? totalValueOdometer;
-  @override
-  final int? partValueOdometer;
-  @override
-  final int? speed;
+  final String? status;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DashboardState.data(voltage: $voltage, outsideTemperature: $outsideTemperature, temperatureInCar: $temperatureInCar, fuelLevel: $fuelLevel, isPowerEngine: $isPowerEngine, isEmergencySignal: $isEmergencySignal, code: $code, turnoverEngine: $turnoverEngine, fuelConsumption: $fuelConsumption, isOpenDoors: $isOpenDoors, isOpenTrunk: $isOpenTrunk, isOnOffLowBeam: $isOnOffLowBeam, isOnOffHighBeam: $isOnOffHighBeam, temperatureEngine: $temperatureEngine, totalValueOdometer: $totalValueOdometer, partValueOdometer: $partValueOdometer, speed: $speed)';
+    return 'DashboardState.data(voltage: $voltage, outsideTemperature: $outsideTemperature, temperatureInCar: $temperatureInCar, fuelLevel: $fuelLevel, isPowerEngine: $isPowerEngine, isEmergencySignal: $isEmergencySignal, errors: $errors, turnoverEngine: $turnoverEngine, fuelConsumption: $fuelConsumption, isOpenDoors: $isOpenDoors, isOpenTrunk: $isOpenTrunk, isOnOffLowBeam: $isOnOffLowBeam, isOnOffHighBeam: $isOnOffHighBeam, temperatureEngine: $temperatureEngine, status: $status)';
   }
 
   @override
@@ -1345,7 +1322,7 @@ class _$_DataDashboardState
       ..add(DiagnosticsProperty('fuelLevel', fuelLevel))
       ..add(DiagnosticsProperty('isPowerEngine', isPowerEngine))
       ..add(DiagnosticsProperty('isEmergencySignal', isEmergencySignal))
-      ..add(DiagnosticsProperty('code', code))
+      ..add(DiagnosticsProperty('errors', errors))
       ..add(DiagnosticsProperty('turnoverEngine', turnoverEngine))
       ..add(DiagnosticsProperty('fuelConsumption', fuelConsumption))
       ..add(DiagnosticsProperty('isOpenDoors', isOpenDoors))
@@ -1353,9 +1330,7 @@ class _$_DataDashboardState
       ..add(DiagnosticsProperty('isOnOffLowBeam', isOnOffLowBeam))
       ..add(DiagnosticsProperty('isOnOffHighBeam', isOnOffHighBeam))
       ..add(DiagnosticsProperty('temperatureEngine', temperatureEngine))
-      ..add(DiagnosticsProperty('totalValueOdometer', totalValueOdometer))
-      ..add(DiagnosticsProperty('partValueOdometer', partValueOdometer))
-      ..add(DiagnosticsProperty('speed', speed));
+      ..add(DiagnosticsProperty('status', status));
   }
 
   @override
@@ -1380,8 +1355,8 @@ class _$_DataDashboardState
             (identical(other.isEmergencySignal, isEmergencySignal) ||
                 const DeepCollectionEquality()
                     .equals(other.isEmergencySignal, isEmergencySignal)) &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)) &&
+            (identical(other.errors, errors) ||
+                const DeepCollectionEquality().equals(other.errors, errors)) &&
             (identical(other.turnoverEngine, turnoverEngine) ||
                 const DeepCollectionEquality()
                     .equals(other.turnoverEngine, turnoverEngine)) &&
@@ -1403,14 +1378,8 @@ class _$_DataDashboardState
             (identical(other.temperatureEngine, temperatureEngine) ||
                 const DeepCollectionEquality()
                     .equals(other.temperatureEngine, temperatureEngine)) &&
-            (identical(other.totalValueOdometer, totalValueOdometer) ||
-                const DeepCollectionEquality()
-                    .equals(other.totalValueOdometer, totalValueOdometer)) &&
-            (identical(other.partValueOdometer, partValueOdometer) ||
-                const DeepCollectionEquality()
-                    .equals(other.partValueOdometer, partValueOdometer)) &&
-            (identical(other.speed, speed) ||
-                const DeepCollectionEquality().equals(other.speed, speed)));
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)));
   }
 
   @override
@@ -1422,7 +1391,7 @@ class _$_DataDashboardState
       const DeepCollectionEquality().hash(fuelLevel) ^
       const DeepCollectionEquality().hash(isPowerEngine) ^
       const DeepCollectionEquality().hash(isEmergencySignal) ^
-      const DeepCollectionEquality().hash(code) ^
+      const DeepCollectionEquality().hash(errors) ^
       const DeepCollectionEquality().hash(turnoverEngine) ^
       const DeepCollectionEquality().hash(fuelConsumption) ^
       const DeepCollectionEquality().hash(isOpenDoors) ^
@@ -1430,9 +1399,7 @@ class _$_DataDashboardState
       const DeepCollectionEquality().hash(isOnOffLowBeam) ^
       const DeepCollectionEquality().hash(isOnOffHighBeam) ^
       const DeepCollectionEquality().hash(temperatureEngine) ^
-      const DeepCollectionEquality().hash(totalValueOdometer) ^
-      const DeepCollectionEquality().hash(partValueOdometer) ^
-      const DeepCollectionEquality().hash(speed);
+      const DeepCollectionEquality().hash(status);
 
   @JsonKey(ignore: true)
   @override
@@ -1448,7 +1415,8 @@ class _$_DataDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1456,7 +1424,7 @@ class _$_DataDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1464,9 +1432,7 @@ class _$_DataDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -1478,7 +1444,7 @@ class _$_DataDashboardState
         fuelLevel,
         isPowerEngine,
         isEmergencySignal,
-        code,
+        errors,
         turnoverEngine,
         fuelConsumption,
         isOpenDoors,
@@ -1486,9 +1452,7 @@ class _$_DataDashboardState
         isOnOffLowBeam,
         isOnOffHighBeam,
         temperatureEngine,
-        totalValueOdometer,
-        partValueOdometer,
-        speed);
+        status);
   }
 
   @override
@@ -1500,7 +1464,7 @@ class _$_DataDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1508,7 +1472,7 @@ class _$_DataDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1516,9 +1480,7 @@ class _$_DataDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -1532,7 +1494,7 @@ class _$_DataDashboardState
           fuelLevel,
           isPowerEngine,
           isEmergencySignal,
-          code,
+          errors,
           turnoverEngine,
           fuelConsumption,
           isOpenDoors,
@@ -1540,9 +1502,7 @@ class _$_DataDashboardState
           isOnOffLowBeam,
           isOnOffHighBeam,
           temperatureEngine,
-          totalValueOdometer,
-          partValueOdometer,
-          speed);
+          status);
     }
     return orElse();
   }
@@ -1590,7 +1550,7 @@ abstract class _DataDashboardState implements DashboardState {
       int? fuelLevel,
       bool? isPowerEngine,
       bool? isEmergencySignal,
-      List<int>? code,
+      String? errors,
       int? turnoverEngine,
       double? fuelConsumption,
       bool? isOpenDoors,
@@ -1598,9 +1558,7 @@ abstract class _DataDashboardState implements DashboardState {
       bool? isOnOffLowBeam,
       bool? isOnOffHighBeam,
       double? temperatureEngine,
-      int? totalValueOdometer,
-      int? partValueOdometer,
-      int? speed}) = _$_DataDashboardState;
+      String? status}) = _$_DataDashboardState;
 
   double? get voltage => throw _privateConstructorUsedError;
   double? get outsideTemperature => throw _privateConstructorUsedError;
@@ -1608,7 +1566,7 @@ abstract class _DataDashboardState implements DashboardState {
   int? get fuelLevel => throw _privateConstructorUsedError;
   bool? get isPowerEngine => throw _privateConstructorUsedError;
   bool? get isEmergencySignal => throw _privateConstructorUsedError;
-  List<int>? get code => throw _privateConstructorUsedError;
+  String? get errors => throw _privateConstructorUsedError;
   int? get turnoverEngine => throw _privateConstructorUsedError;
   double? get fuelConsumption => throw _privateConstructorUsedError;
   bool? get isOpenDoors => throw _privateConstructorUsedError;
@@ -1616,9 +1574,7 @@ abstract class _DataDashboardState implements DashboardState {
   bool? get isOnOffLowBeam => throw _privateConstructorUsedError;
   bool? get isOnOffHighBeam => throw _privateConstructorUsedError;
   double? get temperatureEngine => throw _privateConstructorUsedError;
-  int? get totalValueOdometer => throw _privateConstructorUsedError;
-  int? get partValueOdometer => throw _privateConstructorUsedError;
-  int? get speed => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$DataDashboardStateCopyWith<_DataDashboardState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1706,7 +1662,8 @@ class _$_ErrorDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1714,7 +1671,7 @@ class _$_ErrorDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1722,9 +1679,7 @@ class _$_ErrorDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -1741,7 +1696,7 @@ class _$_ErrorDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1749,7 +1704,7 @@ class _$_ErrorDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1757,9 +1712,7 @@ class _$_ErrorDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -1898,7 +1851,8 @@ class _$_SuccessDashboardState
     required TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)
         viewWeather,
-    required TResult Function(List<UsbDevice>? devices) viewDevices,
+    required TResult Function(List<UsbDevice>? devices, String? errors)
+        viewDevices,
     required TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1906,7 +1860,7 @@ class _$_SuccessDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1914,9 +1868,7 @@ class _$_SuccessDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)
+            String? status)
         data,
     required TResult Function(String? message) error,
     required TResult Function(String? message) success,
@@ -1933,7 +1885,7 @@ class _$_SuccessDashboardState
     TResult Function(String? name, double? temp, int? pressure,
             double? speedWind, int? humidity)?
         viewWeather,
-    TResult Function(List<UsbDevice>? devices)? viewDevices,
+    TResult Function(List<UsbDevice>? devices, String? errors)? viewDevices,
     TResult Function(
             double? voltage,
             double? outsideTemperature,
@@ -1941,7 +1893,7 @@ class _$_SuccessDashboardState
             int? fuelLevel,
             bool? isPowerEngine,
             bool? isEmergencySignal,
-            List<int>? code,
+            String? errors,
             int? turnoverEngine,
             double? fuelConsumption,
             bool? isOpenDoors,
@@ -1949,9 +1901,7 @@ class _$_SuccessDashboardState
             bool? isOnOffLowBeam,
             bool? isOnOffHighBeam,
             double? temperatureEngine,
-            int? totalValueOdometer,
-            int? partValueOdometer,
-            int? speed)?
+            String? status)?
         data,
     TResult Function(String? message)? error,
     TResult Function(String? message)? success,
@@ -2040,32 +1990,14 @@ class _$DashboardEventTearOff {
     return const _TurnOnOffHighBeamDashboardEvent();
   }
 
-  _TurnOnOffLowBeamDashboardEvent turnOnOffLowBeam({List<int>? code}) {
-    return _TurnOnOffLowBeamDashboardEvent(
-      code: code,
-    );
+  _TurnOnOffLowBeamDashboardEvent turnOnOffLowBeam() {
+    return const _TurnOnOffLowBeamDashboardEvent();
   }
 
   _OpenSettingsDashboardEvent openSettings({List<int>? code}) {
     return _OpenSettingsDashboardEvent(
       code: code,
     );
-  }
-
-  _DiscardOdometerDashboardEvent discardOdometer({int? type}) {
-    return _DiscardOdometerDashboardEvent(
-      type: type,
-    );
-  }
-
-  _EditOdometerDashboardEvent editOdometer({String? valueOdometer}) {
-    return _EditOdometerDashboardEvent(
-      valueOdometer: valueOdometer,
-    );
-  }
-
-  _SaveValueOdometerDashboardEvent saveValueOdometer() {
-    return const _SaveValueOdometerDashboardEvent();
   }
 
   _ViewWeatherDashboardEvent viewWeather() {
@@ -2095,11 +2027,8 @@ mixin _$DashboardEvent {
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -2114,11 +2043,8 @@ mixin _$DashboardEvent {
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -2139,11 +2065,6 @@ mixin _$DashboardEvent {
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -2161,9 +2082,6 @@ mixin _$DashboardEvent {
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -2244,11 +2162,8 @@ class _$_InitialDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -2266,11 +2181,8 @@ class _$_InitialDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -2297,11 +2209,6 @@ class _$_InitialDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -2322,9 +2229,6 @@ class _$_InitialDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -2397,11 +2301,8 @@ class _$_StartEngineDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -2419,11 +2320,8 @@ class _$_StartEngineDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -2450,11 +2348,6 @@ class _$_StartEngineDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -2475,9 +2368,6 @@ class _$_StartEngineDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -2554,11 +2444,8 @@ class _$_TurnEmergencySignalDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -2576,11 +2463,8 @@ class _$_TurnEmergencySignalDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -2607,11 +2491,6 @@ class _$_TurnEmergencySignalDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -2632,9 +2511,6 @@ class _$_TurnEmergencySignalDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -2708,11 +2584,8 @@ class _$_OpenWarningDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -2730,11 +2603,8 @@ class _$_OpenWarningDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -2761,11 +2631,6 @@ class _$_OpenWarningDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -2786,9 +2651,6 @@ class _$_OpenWarningDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -2861,11 +2723,8 @@ class _$_OpenDoorsDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -2883,11 +2742,8 @@ class _$_OpenDoorsDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -2914,11 +2770,6 @@ class _$_OpenDoorsDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -2939,9 +2790,6 @@ class _$_OpenDoorsDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -3014,11 +2862,8 @@ class _$_OpenTrunkDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -3036,11 +2881,8 @@ class _$_OpenTrunkDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -3067,11 +2909,6 @@ class _$_OpenTrunkDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -3092,9 +2929,6 @@ class _$_OpenTrunkDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -3171,11 +3005,8 @@ class _$_TurnOnOffHighBeamDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -3193,11 +3024,8 @@ class _$_TurnOnOffHighBeamDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -3224,11 +3052,6 @@ class _$_TurnOnOffHighBeamDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -3249,9 +3072,6 @@ class _$_TurnOnOffHighBeamDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -3275,7 +3095,6 @@ abstract class _$TurnOnOffLowBeamDashboardEventCopyWith<$Res> {
           _TurnOnOffLowBeamDashboardEvent value,
           $Res Function(_TurnOnOffLowBeamDashboardEvent) then) =
       __$TurnOnOffLowBeamDashboardEventCopyWithImpl<$Res>;
-  $Res call({List<int>? code});
 }
 
 /// @nodoc
@@ -3290,18 +3109,6 @@ class __$TurnOnOffLowBeamDashboardEventCopyWithImpl<$Res>
   @override
   _TurnOnOffLowBeamDashboardEvent get _value =>
       super._value as _TurnOnOffLowBeamDashboardEvent;
-
-  @override
-  $Res call({
-    Object? code = freezed,
-  }) {
-    return _then(_TurnOnOffLowBeamDashboardEvent(
-      code: code == freezed
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
-    ));
-  }
 }
 
 /// @nodoc
@@ -3309,41 +3116,27 @@ class __$TurnOnOffLowBeamDashboardEventCopyWithImpl<$Res>
 class _$_TurnOnOffLowBeamDashboardEvent
     with DiagnosticableTreeMixin
     implements _TurnOnOffLowBeamDashboardEvent {
-  const _$_TurnOnOffLowBeamDashboardEvent({this.code});
-
-  @override
-  final List<int>? code;
+  const _$_TurnOnOffLowBeamDashboardEvent();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DashboardEvent.turnOnOffLowBeam(code: $code)';
+    return 'DashboardEvent.turnOnOffLowBeam()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'DashboardEvent.turnOnOffLowBeam'))
-      ..add(DiagnosticsProperty('code', code));
+      ..add(DiagnosticsProperty('type', 'DashboardEvent.turnOnOffLowBeam'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _TurnOnOffLowBeamDashboardEvent &&
-            (identical(other.code, code) ||
-                const DeepCollectionEquality().equals(other.code, code)));
+    return identical(this, other) || (other is _TurnOnOffLowBeamDashboardEvent);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(code);
-
-  @JsonKey(ignore: true)
-  @override
-  _$TurnOnOffLowBeamDashboardEventCopyWith<_TurnOnOffLowBeamDashboardEvent>
-      get copyWith => __$TurnOnOffLowBeamDashboardEventCopyWithImpl<
-          _TurnOnOffLowBeamDashboardEvent>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -3355,16 +3148,13 @@ class _$_TurnOnOffLowBeamDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
   }) {
-    return turnOnOffLowBeam(code);
+    return turnOnOffLowBeam();
   }
 
   @override
@@ -3377,18 +3167,15 @@ class _$_TurnOnOffLowBeamDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
     required TResult orElse(),
   }) {
     if (turnOnOffLowBeam != null) {
-      return turnOnOffLowBeam(code);
+      return turnOnOffLowBeam();
     }
     return orElse();
   }
@@ -3408,11 +3195,6 @@ class _$_TurnOnOffLowBeamDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -3433,9 +3215,6 @@ class _$_TurnOnOffLowBeamDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -3449,13 +3228,8 @@ class _$_TurnOnOffLowBeamDashboardEvent
 }
 
 abstract class _TurnOnOffLowBeamDashboardEvent implements DashboardEvent {
-  const factory _TurnOnOffLowBeamDashboardEvent({List<int>? code}) =
+  const factory _TurnOnOffLowBeamDashboardEvent() =
       _$_TurnOnOffLowBeamDashboardEvent;
-
-  List<int>? get code => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$TurnOnOffLowBeamDashboardEventCopyWith<_TurnOnOffLowBeamDashboardEvent>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3543,11 +3317,8 @@ class _$_OpenSettingsDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -3565,11 +3336,8 @@ class _$_OpenSettingsDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -3596,11 +3364,6 @@ class _$_OpenSettingsDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -3621,9 +3384,6 @@ class _$_OpenSettingsDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -3644,542 +3404,6 @@ abstract class _OpenSettingsDashboardEvent implements DashboardEvent {
   @JsonKey(ignore: true)
   _$OpenSettingsDashboardEventCopyWith<_OpenSettingsDashboardEvent>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$DiscardOdometerDashboardEventCopyWith<$Res> {
-  factory _$DiscardOdometerDashboardEventCopyWith(
-          _DiscardOdometerDashboardEvent value,
-          $Res Function(_DiscardOdometerDashboardEvent) then) =
-      __$DiscardOdometerDashboardEventCopyWithImpl<$Res>;
-  $Res call({int? type});
-}
-
-/// @nodoc
-class __$DiscardOdometerDashboardEventCopyWithImpl<$Res>
-    extends _$DashboardEventCopyWithImpl<$Res>
-    implements _$DiscardOdometerDashboardEventCopyWith<$Res> {
-  __$DiscardOdometerDashboardEventCopyWithImpl(
-      _DiscardOdometerDashboardEvent _value,
-      $Res Function(_DiscardOdometerDashboardEvent) _then)
-      : super(_value, (v) => _then(v as _DiscardOdometerDashboardEvent));
-
-  @override
-  _DiscardOdometerDashboardEvent get _value =>
-      super._value as _DiscardOdometerDashboardEvent;
-
-  @override
-  $Res call({
-    Object? type = freezed,
-  }) {
-    return _then(_DiscardOdometerDashboardEvent(
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_DiscardOdometerDashboardEvent
-    with DiagnosticableTreeMixin
-    implements _DiscardOdometerDashboardEvent {
-  const _$_DiscardOdometerDashboardEvent({this.type});
-
-  @override
-  final int? type;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DashboardEvent.discardOdometer(type: $type)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'DashboardEvent.discardOdometer'))
-      ..add(DiagnosticsProperty('type', type));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _DiscardOdometerDashboardEvent &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(type);
-
-  @JsonKey(ignore: true)
-  @override
-  _$DiscardOdometerDashboardEventCopyWith<_DiscardOdometerDashboardEvent>
-      get copyWith => __$DiscardOdometerDashboardEventCopyWithImpl<
-          _DiscardOdometerDashboardEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() startEngine,
-    required TResult Function() turnEmergencySignal,
-    required TResult Function() openWarning,
-    required TResult Function() openDoors,
-    required TResult Function() openTrunk,
-    required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
-    required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
-    required TResult Function() viewWeather,
-    required TResult Function() viewDevices,
-    required TResult Function() sendSosSms,
-  }) {
-    return discardOdometer(type);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? startEngine,
-    TResult Function()? turnEmergencySignal,
-    TResult Function()? openWarning,
-    TResult Function()? openDoors,
-    TResult Function()? openTrunk,
-    TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
-    TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
-    TResult Function()? viewWeather,
-    TResult Function()? viewDevices,
-    TResult Function()? sendSosSms,
-    required TResult orElse(),
-  }) {
-    if (discardOdometer != null) {
-      return discardOdometer(type);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_InitialDashboardEvent value) initial,
-    required TResult Function(_StartEngineDashboardEvent value) startEngine,
-    required TResult Function(_TurnEmergencySignalDashboardEvent value)
-        turnEmergencySignal,
-    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
-    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
-    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
-    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
-        turnOnOffHighBeam,
-    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
-        turnOnOffLowBeam,
-    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
-    required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
-    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
-    required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
-  }) {
-    return discardOdometer(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InitialDashboardEvent value)? initial,
-    TResult Function(_StartEngineDashboardEvent value)? startEngine,
-    TResult Function(_TurnEmergencySignalDashboardEvent value)?
-        turnEmergencySignal,
-    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
-    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
-    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
-    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
-    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
-    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
-    TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
-    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
-    TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
-    required TResult orElse(),
-  }) {
-    if (discardOdometer != null) {
-      return discardOdometer(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _DiscardOdometerDashboardEvent implements DashboardEvent {
-  const factory _DiscardOdometerDashboardEvent({int? type}) =
-      _$_DiscardOdometerDashboardEvent;
-
-  int? get type => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$DiscardOdometerDashboardEventCopyWith<_DiscardOdometerDashboardEvent>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$EditOdometerDashboardEventCopyWith<$Res> {
-  factory _$EditOdometerDashboardEventCopyWith(
-          _EditOdometerDashboardEvent value,
-          $Res Function(_EditOdometerDashboardEvent) then) =
-      __$EditOdometerDashboardEventCopyWithImpl<$Res>;
-  $Res call({String? valueOdometer});
-}
-
-/// @nodoc
-class __$EditOdometerDashboardEventCopyWithImpl<$Res>
-    extends _$DashboardEventCopyWithImpl<$Res>
-    implements _$EditOdometerDashboardEventCopyWith<$Res> {
-  __$EditOdometerDashboardEventCopyWithImpl(_EditOdometerDashboardEvent _value,
-      $Res Function(_EditOdometerDashboardEvent) _then)
-      : super(_value, (v) => _then(v as _EditOdometerDashboardEvent));
-
-  @override
-  _EditOdometerDashboardEvent get _value =>
-      super._value as _EditOdometerDashboardEvent;
-
-  @override
-  $Res call({
-    Object? valueOdometer = freezed,
-  }) {
-    return _then(_EditOdometerDashboardEvent(
-      valueOdometer: valueOdometer == freezed
-          ? _value.valueOdometer
-          : valueOdometer // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_EditOdometerDashboardEvent
-    with DiagnosticableTreeMixin
-    implements _EditOdometerDashboardEvent {
-  const _$_EditOdometerDashboardEvent({this.valueOdometer});
-
-  @override
-  final String? valueOdometer;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DashboardEvent.editOdometer(valueOdometer: $valueOdometer)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'DashboardEvent.editOdometer'))
-      ..add(DiagnosticsProperty('valueOdometer', valueOdometer));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _EditOdometerDashboardEvent &&
-            (identical(other.valueOdometer, valueOdometer) ||
-                const DeepCollectionEquality()
-                    .equals(other.valueOdometer, valueOdometer)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(valueOdometer);
-
-  @JsonKey(ignore: true)
-  @override
-  _$EditOdometerDashboardEventCopyWith<_EditOdometerDashboardEvent>
-      get copyWith => __$EditOdometerDashboardEventCopyWithImpl<
-          _EditOdometerDashboardEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() startEngine,
-    required TResult Function() turnEmergencySignal,
-    required TResult Function() openWarning,
-    required TResult Function() openDoors,
-    required TResult Function() openTrunk,
-    required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
-    required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
-    required TResult Function() viewWeather,
-    required TResult Function() viewDevices,
-    required TResult Function() sendSosSms,
-  }) {
-    return editOdometer(valueOdometer);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? startEngine,
-    TResult Function()? turnEmergencySignal,
-    TResult Function()? openWarning,
-    TResult Function()? openDoors,
-    TResult Function()? openTrunk,
-    TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
-    TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
-    TResult Function()? viewWeather,
-    TResult Function()? viewDevices,
-    TResult Function()? sendSosSms,
-    required TResult orElse(),
-  }) {
-    if (editOdometer != null) {
-      return editOdometer(valueOdometer);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_InitialDashboardEvent value) initial,
-    required TResult Function(_StartEngineDashboardEvent value) startEngine,
-    required TResult Function(_TurnEmergencySignalDashboardEvent value)
-        turnEmergencySignal,
-    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
-    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
-    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
-    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
-        turnOnOffHighBeam,
-    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
-        turnOnOffLowBeam,
-    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
-    required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
-    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
-    required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
-  }) {
-    return editOdometer(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InitialDashboardEvent value)? initial,
-    TResult Function(_StartEngineDashboardEvent value)? startEngine,
-    TResult Function(_TurnEmergencySignalDashboardEvent value)?
-        turnEmergencySignal,
-    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
-    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
-    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
-    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
-    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
-    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
-    TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
-    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
-    TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
-    required TResult orElse(),
-  }) {
-    if (editOdometer != null) {
-      return editOdometer(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _EditOdometerDashboardEvent implements DashboardEvent {
-  const factory _EditOdometerDashboardEvent({String? valueOdometer}) =
-      _$_EditOdometerDashboardEvent;
-
-  String? get valueOdometer => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$EditOdometerDashboardEventCopyWith<_EditOdometerDashboardEvent>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$SaveValueOdometerDashboardEventCopyWith<$Res> {
-  factory _$SaveValueOdometerDashboardEventCopyWith(
-          _SaveValueOdometerDashboardEvent value,
-          $Res Function(_SaveValueOdometerDashboardEvent) then) =
-      __$SaveValueOdometerDashboardEventCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$SaveValueOdometerDashboardEventCopyWithImpl<$Res>
-    extends _$DashboardEventCopyWithImpl<$Res>
-    implements _$SaveValueOdometerDashboardEventCopyWith<$Res> {
-  __$SaveValueOdometerDashboardEventCopyWithImpl(
-      _SaveValueOdometerDashboardEvent _value,
-      $Res Function(_SaveValueOdometerDashboardEvent) _then)
-      : super(_value, (v) => _then(v as _SaveValueOdometerDashboardEvent));
-
-  @override
-  _SaveValueOdometerDashboardEvent get _value =>
-      super._value as _SaveValueOdometerDashboardEvent;
-}
-
-/// @nodoc
-
-class _$_SaveValueOdometerDashboardEvent
-    with DiagnosticableTreeMixin
-    implements _SaveValueOdometerDashboardEvent {
-  const _$_SaveValueOdometerDashboardEvent();
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DashboardEvent.saveValueOdometer()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'DashboardEvent.saveValueOdometer'));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _SaveValueOdometerDashboardEvent);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() startEngine,
-    required TResult Function() turnEmergencySignal,
-    required TResult Function() openWarning,
-    required TResult Function() openDoors,
-    required TResult Function() openTrunk,
-    required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
-    required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
-    required TResult Function() viewWeather,
-    required TResult Function() viewDevices,
-    required TResult Function() sendSosSms,
-  }) {
-    return saveValueOdometer();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? startEngine,
-    TResult Function()? turnEmergencySignal,
-    TResult Function()? openWarning,
-    TResult Function()? openDoors,
-    TResult Function()? openTrunk,
-    TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
-    TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
-    TResult Function()? viewWeather,
-    TResult Function()? viewDevices,
-    TResult Function()? sendSosSms,
-    required TResult orElse(),
-  }) {
-    if (saveValueOdometer != null) {
-      return saveValueOdometer();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_InitialDashboardEvent value) initial,
-    required TResult Function(_StartEngineDashboardEvent value) startEngine,
-    required TResult Function(_TurnEmergencySignalDashboardEvent value)
-        turnEmergencySignal,
-    required TResult Function(_OpenWarningDashboardEvent value) openWarning,
-    required TResult Function(_OpenDoorsDashboardEvent value) openDoors,
-    required TResult Function(_OpenTrunkDashboardEvent value) openTrunk,
-    required TResult Function(_TurnOnOffHighBeamDashboardEvent value)
-        turnOnOffHighBeam,
-    required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
-        turnOnOffLowBeam,
-    required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
-    required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
-    required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
-    required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
-  }) {
-    return saveValueOdometer(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InitialDashboardEvent value)? initial,
-    TResult Function(_StartEngineDashboardEvent value)? startEngine,
-    TResult Function(_TurnEmergencySignalDashboardEvent value)?
-        turnEmergencySignal,
-    TResult Function(_OpenWarningDashboardEvent value)? openWarning,
-    TResult Function(_OpenDoorsDashboardEvent value)? openDoors,
-    TResult Function(_OpenTrunkDashboardEvent value)? openTrunk,
-    TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
-    TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
-    TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
-    TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
-    TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
-    TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
-    required TResult orElse(),
-  }) {
-    if (saveValueOdometer != null) {
-      return saveValueOdometer(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _SaveValueOdometerDashboardEvent implements DashboardEvent {
-  const factory _SaveValueOdometerDashboardEvent() =
-      _$_SaveValueOdometerDashboardEvent;
 }
 
 /// @nodoc
@@ -4238,11 +3462,8 @@ class _$_ViewWeatherDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -4260,11 +3481,8 @@ class _$_ViewWeatherDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -4291,11 +3509,6 @@ class _$_ViewWeatherDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -4316,9 +3529,6 @@ class _$_ViewWeatherDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -4391,11 +3601,8 @@ class _$_ViewDevivesDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -4413,11 +3620,8 @@ class _$_ViewDevivesDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -4444,11 +3648,6 @@ class _$_ViewDevivesDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -4469,9 +3668,6 @@ class _$_ViewDevivesDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,
@@ -4544,11 +3740,8 @@ class _$_SendSosSmsDashboardEvent
     required TResult Function() openDoors,
     required TResult Function() openTrunk,
     required TResult Function() turnOnOffHighBeam,
-    required TResult Function(List<int>? code) turnOnOffLowBeam,
+    required TResult Function() turnOnOffLowBeam,
     required TResult Function(List<int>? code) openSettings,
-    required TResult Function(int? type) discardOdometer,
-    required TResult Function(String? valueOdometer) editOdometer,
-    required TResult Function() saveValueOdometer,
     required TResult Function() viewWeather,
     required TResult Function() viewDevices,
     required TResult Function() sendSosSms,
@@ -4566,11 +3759,8 @@ class _$_SendSosSmsDashboardEvent
     TResult Function()? openDoors,
     TResult Function()? openTrunk,
     TResult Function()? turnOnOffHighBeam,
-    TResult Function(List<int>? code)? turnOnOffLowBeam,
+    TResult Function()? turnOnOffLowBeam,
     TResult Function(List<int>? code)? openSettings,
-    TResult Function(int? type)? discardOdometer,
-    TResult Function(String? valueOdometer)? editOdometer,
-    TResult Function()? saveValueOdometer,
     TResult Function()? viewWeather,
     TResult Function()? viewDevices,
     TResult Function()? sendSosSms,
@@ -4597,11 +3787,6 @@ class _$_SendSosSmsDashboardEvent
     required TResult Function(_TurnOnOffLowBeamDashboardEvent value)
         turnOnOffLowBeam,
     required TResult Function(_OpenSettingsDashboardEvent value) openSettings,
-    required TResult Function(_DiscardOdometerDashboardEvent value)
-        discardOdometer,
-    required TResult Function(_EditOdometerDashboardEvent value) editOdometer,
-    required TResult Function(_SaveValueOdometerDashboardEvent value)
-        saveValueOdometer,
     required TResult Function(_ViewWeatherDashboardEvent value) viewWeather,
     required TResult Function(_ViewDevivesDashboardEvent value) viewDevices,
     required TResult Function(_SendSosSmsDashboardEvent value) sendSosSms,
@@ -4622,9 +3807,6 @@ class _$_SendSosSmsDashboardEvent
     TResult Function(_TurnOnOffHighBeamDashboardEvent value)? turnOnOffHighBeam,
     TResult Function(_TurnOnOffLowBeamDashboardEvent value)? turnOnOffLowBeam,
     TResult Function(_OpenSettingsDashboardEvent value)? openSettings,
-    TResult Function(_DiscardOdometerDashboardEvent value)? discardOdometer,
-    TResult Function(_EditOdometerDashboardEvent value)? editOdometer,
-    TResult Function(_SaveValueOdometerDashboardEvent value)? saveValueOdometer,
     TResult Function(_ViewWeatherDashboardEvent value)? viewWeather,
     TResult Function(_ViewDevivesDashboardEvent value)? viewDevices,
     TResult Function(_SendSosSmsDashboardEvent value)? sendSosSms,

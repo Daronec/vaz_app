@@ -19,7 +19,7 @@ class FuelConsumption extends StatelessWidget {
           fuelConsumption.toString(),
           style: Theme.of(context)
               .textTheme
-              .headline4!
+              .headline3!
               .copyWith(color: AppColors.light_yellow),
         ),
         Text(

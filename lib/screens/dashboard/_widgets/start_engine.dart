@@ -23,35 +23,15 @@ class StartEngine extends StatefulWidget {
 class _StartEngineState extends State<StartEngine> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onLongPress: () {
-        setState(() {
-          widget.onTap();
-        });
-      },
-      child: Container(
-        height: 64,
-        width: 64,
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            width: 3,
-            color: widget.on ? Colors.white : AppColors.dark_grey,
-            style: BorderStyle.solid,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.dark_grey,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 4.0,
-            ),
-          ],
-          color: Colors.black54,
-        ),
+    return Expanded(
+      child: GestureDetector(
+        onLongPress: () {
+          setState(() {
+            widget.onTap();
+          });
+        },
         child: Container(
-          height: 50,
-          width: 50,
+          height: (MediaQuery.of(context).size.height - 88) / 2,
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
@@ -81,15 +61,15 @@ class _StartEngineState extends State<StartEngine> {
                 S.push_start,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 9,
+                  fontSize: 21,
                   fontWeight: FontWeight.bold,
                   color: widget.on ? Colors.white : AppColors.grey,
                 ),
               ),
               SvgPicture.asset(
                 MainIcons.engine,
-                width: 20,
-                color: widget.on ? Colors.yellow : AppColors.grey,
+                width: 60,
+                color: widget.on ? Colors.yellow : AppColors.light_grey,
               ),
             ],
           ),

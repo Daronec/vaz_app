@@ -14,7 +14,7 @@ class DefaultButton extends StatelessWidget {
     this.title,
     this.isActive = true,
     this.onPress,
-    this.color = AppColors.info_icon,
+    this.color = AppColors.orange,
     this.colorText = Colors.white,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class DefaultButton extends StatelessWidget {
     return TextButton(
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 19),
-          backgroundColor: isActive! ? color : AppColors.info_icon,
+          backgroundColor: isActive! ? color : AppColors.orange,
         ),
         onPressed: () => onPress!(),
         child: Center(
@@ -31,7 +31,6 @@ class DefaultButton extends StatelessWidget {
             title!,
             style: AppTextStyles.subTitle,
           ),
-        )
-    );
+        ));
   }
 }

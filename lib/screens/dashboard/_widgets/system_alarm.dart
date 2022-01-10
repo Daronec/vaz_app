@@ -4,16 +4,16 @@ import 'package:vaz_mobile/resourses/main_icons.dart';
 import 'package:vaz_mobile/style/app_colors.dart';
 
 class SystemAlarm extends StatefulWidget {
-  final Function onTap;
-  final bool on;
-
   const SystemAlarm({
     Key? key,
     required this.onTap,
     this.on = false,
-  }) : super(
-          key: key,
-        );
+    required this.errors,
+  }) : super(key: key);
+
+  final Function onTap;
+  final bool on;
+  final String errors;
 
   @override
   _SystemAlarmState createState() => _SystemAlarmState();
@@ -63,30 +63,10 @@ class _SystemAlarmState extends State<SystemAlarm>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (BuildContext? context, Widget? child) {
-        return Container(
-          height: 64,
-          width: 64,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              width: 3,
-              color: AppColors.dark_grey,
-              style: BorderStyle.solid,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.dark_grey,
-                offset: Offset(0.0, 0.0),
-                blurRadius: 4.0,
-              ),
-            ],
-            color: Colors.black54,
-          ),
+      builder: (BuildContext context, Widget? child) {
+        return Expanded(
           child: Container(
-            height: 50,
-            width: 50,
+            height: (MediaQuery.of(context).size.height - 88) / 2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               boxShadow: [
@@ -117,9 +97,9 @@ class _SystemAlarmState extends State<SystemAlarm>
               highlightColor: Colors.transparent,
               icon: SvgPicture.asset(
                 MainIcons.brake_system_warning,
-                height: 40,
-                width: 40,
-                color: widget.on ? animation.value : AppColors.dark_grey,
+                height: 56,
+                width: 56,
+                color: widget.on ? animation.value : AppColors.light_grey,
               ),
             ),
           ),

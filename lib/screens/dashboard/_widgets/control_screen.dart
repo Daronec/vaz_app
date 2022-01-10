@@ -11,7 +11,7 @@ class ControlScreen extends StatelessWidget {
     Key? key,
     required this.isPowerEngine,
     required this.isEmergencySignal,
-    required this.code,
+    required this.errors,
     required this.startEngine,
     required this.turnEmergencySignal,
     required this.openWarning,
@@ -27,7 +27,7 @@ class ControlScreen extends StatelessWidget {
 
   final bool isEmergencySignal;
   final bool isPowerEngine;
-  final List<int> code;
+  final String errors;
   final Function startEngine;
   final Function turnEmergencySignal;
   final Function openWarning;
@@ -48,41 +48,59 @@ class ControlScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               StartEngine(
                 onTap: () => startEngine(),
                 on: isPowerEngine,
               ),
+              const SizedBox(
+                width: 20,
+              ),
               EmergencyButton(
                 onTap: turnEmergencySignal,
                 on: isEmergencySignal,
               ),
+              const SizedBox(
+                width: 20,
+              ),
               SystemAlarm(
                 onTap: () => openWarning(),
-                on: code.isNotEmpty,
+                on: errors.isNotEmpty,
+                errors: errors,
               ),
             ],
+          ),
+          const SizedBox(
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconPanel(
+              ButtonPanel(
                 icon: MainIcons.doors,
                 onTap: () => openDoors(),
                 on: isOpenDoors,
               ),
-              IconPanel(
+              const SizedBox(
+                width: 20,
+              ),
+              ButtonPanel(
                 icon: MainIcons.trunk,
                 onTap: () => openTrunk(),
                 on: isOpenTrunk,
               ),
-              IconPanel(
+              const SizedBox(
+                width: 20,
+              ),
+              ButtonPanel(
                 icon: MainIcons.high_beam,
                 onTap: () => turnOnOffHighBeam(),
                 on: isOnOffHighBeam,
               ),
-              IconPanel(
+              const SizedBox(
+                width: 20,
+              ),
+              ButtonPanel(
                 icon: MainIcons.low_beam,
                 onTap: () => turnOnOffLowBeam(),
                 on: isOnOffLowBeam,

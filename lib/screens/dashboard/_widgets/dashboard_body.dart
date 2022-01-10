@@ -14,7 +14,7 @@ class DashboardBody extends StatelessWidget {
   final int fuelLevel;
   final bool isPowerEngine;
   final bool isEmergencySignal;
-  final List<int> code;
+  final String errors;
   final int turnoverEngine;
   final double fuelConsumption;
   final bool isOpenDoors;
@@ -22,9 +22,7 @@ class DashboardBody extends StatelessWidget {
   final bool isOnOffLowBeam;
   final bool isOnOffHighBeam;
   final double temperatureEngine;
-  final int partValueOdometer;
-  final int totalValueOdometer;
-  final int speed;
+  final String status;
 
   const DashboardBody({
     Key? key,
@@ -34,7 +32,7 @@ class DashboardBody extends StatelessWidget {
     required this.fuelLevel,
     required this.isPowerEngine,
     required this.isEmergencySignal,
-    required this.code,
+    required this.errors,
     required this.turnoverEngine,
     required this.fuelConsumption,
     required this.isOpenDoors,
@@ -42,9 +40,7 @@ class DashboardBody extends StatelessWidget {
     required this.isOnOffLowBeam,
     required this.isOnOffHighBeam,
     required this.temperatureEngine,
-    required this.partValueOdometer,
-    required this.totalValueOdometer,
-    required this.speed,
+    required this.status,
   }) : super(key: key);
 
   @override
@@ -53,11 +49,14 @@ class DashboardBody extends StatelessWidget {
       create: (_) => DashboardViewModel(),
       child: PageView(
         children: [
-          SpeedScreen(turnoverEngine: turnoverEngine),
+          SpeedScreen(
+            turnoverEngine: turnoverEngine,
+            status: status,
+          ),
           ControlScreen(
             isPowerEngine: isPowerEngine,
             isEmergencySignal: isEmergencySignal,
-            code: code,
+            errors: errors,
             startEngine: () => BlocProvider.of<DashboardBloc>(context)
               ..add(DashboardEvent.startEngine()),
             turnEmergencySignal: () => BlocProvider.of<DashboardBloc>(context)
@@ -73,9 +72,9 @@ class DashboardBody extends StatelessWidget {
             openTrunk: () => BlocProvider.of<DashboardBloc>(context)
               ..add(DashboardEvent.openTrunk()),
             turnOnOffLowBeam: () => BlocProvider.of<DashboardBloc>(context)
-              ..add(DashboardEvent.turnOnOffHighBeam()),
-            turnOnOffHighBeam: () => BlocProvider.of<DashboardBloc>(context)
               ..add(DashboardEvent.turnOnOffLowBeam()),
+            turnOnOffHighBeam: () => BlocProvider.of<DashboardBloc>(context)
+              ..add(DashboardEvent.turnOnOffHighBeam()),
           ),
           InfoScreen(
             fuelLevel: fuelLevel,

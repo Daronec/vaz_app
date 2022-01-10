@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 import 'dart:typed_data';
 
@@ -5,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usb_serial/transaction.dart';
 import 'package:usb_serial/usb_serial.dart';
 import 'package:vaz_mobile/data/helpers/request_error.dart';
@@ -44,7 +45,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   int fuelLevel = 0;
   bool isPowerEngine = false;
   bool isEmergencySignal = false;
-  List<int> code = [];
+  String errors = 'Ошибок нет';
   int turnoverEngine = 0;
   double fuelConsumption = 0;
   bool isOpenDoors = false;
@@ -64,9 +65,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   int? humidity = 0;
   List<UsbDevice> devices = [];
   UsbPort? port;
-  String status = "Idle";
+  String status = "Disconnected";
   Transaction<String>? _transaction;
   UsbDevice? device;
+  bool isConnected = false;
 
   @override
   Stream<DashboardState> mapEventToState(DashboardEvent event) async* {
@@ -80,9 +82,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       turnOnOffHighBeam: _mapTurnOnOffHighBeamDashboardEvent,
       turnOnOffLowBeam: _mapTurnOnOffLowBeamDashboardEvent,
       openSettings: _mapOpenSettingsDashboardEvent,
-      discardOdometer: _mapDiscardOdometerDashboardEvent,
-      editOdometer: _mapEditOdometerDashboardEvent,
-      saveValueOdometer: _mapSaveValueOdometerDashboardEvent,
       viewWeather: _mapViewWeatherDashboardEvent,
       sendSosSms: _mapSendSosSmsDashboardEvent,
       viewDevices: _mapViewDevicesDashboardEvent,
@@ -98,12 +97,15 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         final result = await connectTo(devices[0]);
         if (result) {
           yield DashboardState.success(message: status);
-          // await port!.write(Uint8List.fromList([0x10, 0x00]));
         } else {
           yield DashboardState.error(message: status);
         }
       } else {
         yield DashboardState.error(message: 'Устройство не обнаружено');
+      }
+      LocationPermission permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        await Geolocator.openLocationSettings();
       }
       yield const DashboardState.loading();
       await getWeather();
@@ -112,7 +114,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel = 3;
       isPowerEngine = false;
       isEmergencySignal = false;
-      code = [];
+      errors = '';
       turnoverEngine = 2500;
       fuelConsumption = 12.3;
       isOpenDoors = false;
@@ -130,7 +132,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -138,19 +140,25 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
   Stream<DashboardState> _mapStartEngineDashboardEvent(
       _StartEngineDashboardEvent event) async* {
     yield DashboardState.loading();
-    if (port != null) {
+    if (isConnected) {
       isPowerEngine = !isPowerEngine;
-      String command = 'start';
-      await port!.write(Uint8List.fromList(command.codeUnits));
+      try {
+        sendCommand(
+          object: 'engine',
+          command: isPowerEngine,
+        );
+      } catch (ex) {
+        yield DashboardState.error(message: ex.toString());
+      }
+    } else {
+      yield DashboardState.error(message: 'Устройство не обнаружено');
     }
     yield DashboardState.data(
       voltage: voltage,
@@ -159,7 +167,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -167,16 +175,26 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
   Stream<DashboardState> _mapTurnEmergencySignalDashboardEvent(
       _TurnEmergencySignalDashboardEvent event) async* {
     yield DashboardState.loading();
-    isEmergencySignal = !isEmergencySignal;
+    if (isConnected) {
+      isEmergencySignal = !isEmergencySignal;
+      try {
+        sendCommand(
+          object: 'emergency_signal',
+          command: isEmergencySignal,
+        );
+      } catch (ex) {
+        yield DashboardState.error(message: ex.toString());
+      }
+    } else {
+      yield DashboardState.error(message: 'Устройство не обнаружено');
+    }
     yield DashboardState.data(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -184,7 +202,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -192,9 +210,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -208,7 +224,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -216,16 +232,26 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
   Stream<DashboardState> _mapOpenDoorsDashboardEvent(
       _OpenDoorsDashboardEvent event) async* {
     yield DashboardState.loading();
-    isOpenDoors = !isOpenDoors;
+    if (isConnected) {
+      isOpenDoors = !isOpenDoors;
+      try {
+        sendCommand(
+          object: 'open_doors',
+          command: isOpenDoors,
+        );
+      } catch (ex) {
+        yield DashboardState.error(message: ex.toString());
+      }
+    } else {
+      yield DashboardState.error(message: 'Устройство не обнаружено');
+    }
     yield DashboardState.data(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -233,7 +259,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -241,16 +267,26 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
   Stream<DashboardState> _mapOpenTrunkDashboardEvent(
       _OpenTrunkDashboardEvent event) async* {
     yield DashboardState.loading();
-    isOpenTrunk = !isOpenTrunk;
+    if (isConnected) {
+      isOpenTrunk = !isOpenTrunk;
+      try {
+        sendCommand(
+          object: 'open_trunk',
+          command: isOpenTrunk,
+        );
+      } catch (ex) {
+        yield DashboardState.error(message: ex.toString());
+      }
+    } else {
+      yield DashboardState.error(message: 'Устройство не обнаружено');
+    }
     yield DashboardState.data(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -258,7 +294,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -266,16 +302,27 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
   Stream<DashboardState> _mapTurnOnOffHighBeamDashboardEvent(
       _TurnOnOffHighBeamDashboardEvent event) async* {
     yield DashboardState.loading();
-    isOnOffHighBeam = !isOnOffHighBeam;
+    if (isConnected) {
+      isOnOffHighBeam = !isOnOffHighBeam;
+      try {
+        sendCommand(
+          object: 'on_high_beam',
+          command: isOnOffHighBeam,
+        );
+      } catch (ex) {
+        yield DashboardState.error(message: ex.toString());
+      }
+    } else {
+      yield DashboardState.error(message: 'Устройство не обнаружено');
+    }
+    isOnOffLowBeam = false;
     yield DashboardState.data(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -283,7 +330,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -291,16 +338,27 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
   Stream<DashboardState> _mapTurnOnOffLowBeamDashboardEvent(
       _TurnOnOffLowBeamDashboardEvent event) async* {
     yield DashboardState.loading();
-    isOnOffLowBeam = !isOnOffLowBeam;
+    if (isConnected) {
+      isOnOffLowBeam = !isOnOffLowBeam;
+      try {
+        sendCommand(
+          object: 'on_low_beam',
+          command: isOnOffLowBeam,
+        );
+      } catch (ex) {
+        yield DashboardState.error(message: ex.toString());
+      }
+    } else {
+      yield DashboardState.error(message: 'Устройство не обнаружено');
+    }
+    isOnOffHighBeam = false;
     yield DashboardState.data(
       voltage: voltage,
       outsideTemperature: outsideTemperature,
@@ -308,7 +366,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -316,9 +374,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -333,7 +389,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -341,88 +397,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
-    );
-  }
-
-  Stream<DashboardState> _mapDiscardOdometerDashboardEvent(
-      _DiscardOdometerDashboardEvent event) async* {
-    yield DashboardState.loading();
-    if (event.type == 0) {
-      partValueOdometer = 0;
-    }
-    if (event.type == 1) {
-      totalValueOdometer = 0;
-    }
-    yield DashboardState.data(
-      voltage: voltage,
-      outsideTemperature: outsideTemperature,
-      temperatureInCar: temperatureInCar,
-      fuelLevel: fuelLevel,
-      isPowerEngine: isPowerEngine,
-      isEmergencySignal: isEmergencySignal,
-      code: code,
-      turnoverEngine: turnoverEngine,
-      fuelConsumption: fuelConsumption,
-      isOpenDoors: isOpenDoors,
-      isOpenTrunk: isOpenTrunk,
-      isOnOffLowBeam: isOnOffLowBeam,
-      isOnOffHighBeam: isOnOffHighBeam,
-      temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
-    );
-  }
-
-  Stream<DashboardState> _mapEditOdometerDashboardEvent(
-      _EditOdometerDashboardEvent event) async* {
-    totalValueOdometer = int.tryParse(event.valueOdometer!)!;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    _prefs.setString('totalValueOdometer', event.valueOdometer!);
-    yield DashboardState.data(
-      voltage: voltage,
-      outsideTemperature: outsideTemperature,
-      temperatureInCar: temperatureInCar,
-      fuelLevel: fuelLevel,
-      isPowerEngine: isPowerEngine,
-      isEmergencySignal: isEmergencySignal,
-      code: code,
-      turnoverEngine: turnoverEngine,
-      fuelConsumption: fuelConsumption,
-      isOpenDoors: isOpenDoors,
-      isOpenTrunk: isOpenTrunk,
-      isOnOffLowBeam: isOnOffLowBeam,
-      isOnOffHighBeam: isOnOffHighBeam,
-      temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
-    );
-  }
-
-  Stream<DashboardState> _mapSaveValueOdometerDashboardEvent(
-      _SaveValueOdometerDashboardEvent event) async* {
-    yield DashboardState.data(
-      voltage: voltage,
-      outsideTemperature: outsideTemperature,
-      temperatureInCar: temperatureInCar,
-      fuelLevel: fuelLevel,
-      isPowerEngine: isPowerEngine,
-      isEmergencySignal: isEmergencySignal,
-      code: code,
-      turnoverEngine: turnoverEngine,
-      fuelConsumption: fuelConsumption,
-      isOpenDoors: isOpenDoors,
-      isOpenTrunk: isOpenTrunk,
-      isOnOffLowBeam: isOnOffLowBeam,
-      isOnOffHighBeam: isOnOffHighBeam,
-      temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -438,13 +413,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     } catch (ex) {
       yield DashboardState.error(message: requestError(ex));
     }
-
     yield DashboardState.viewWeather(
-      name: nameLocation!,
-      temp: tempLocation!,
-      pressure: pressure!,
-      speedWind: speedWind!,
-      humidity: humidity!,
+      name: nameLocation,
+      temp: tempLocation,
+      pressure: pressure,
+      speedWind: speedWind,
+      humidity: humidity,
     );
     yield DashboardState.data(
       voltage: voltage,
@@ -453,7 +427,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -461,9 +435,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -479,7 +451,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -487,9 +459,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -516,7 +486,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       fuelLevel: fuelLevel,
       isPowerEngine: isPowerEngine,
       isEmergencySignal: isEmergencySignal,
-      code: code,
+      errors: errors,
       turnoverEngine: turnoverEngine,
       fuelConsumption: fuelConsumption,
       isOpenDoors: isOpenDoors,
@@ -524,9 +494,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       isOnOffLowBeam: isOnOffLowBeam,
       isOnOffHighBeam: isOnOffHighBeam,
       temperatureEngine: temperatureEngine,
-      totalValueOdometer: totalValueOdometer,
-      partValueOdometer: partValueOdometer,
-      speed: speed,
+      status: status,
     );
   }
 
@@ -544,6 +512,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     if (device == null) {
       device = null;
       status = "Disconnected";
+      isConnected = false;
       return true;
     }
 
@@ -569,10 +538,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
 
     status = "Connected";
+    isConnected = true;
     return true;
   }
 
-  Future<void> getWeather() async {
+  getWeather() async {
     final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
@@ -589,6 +559,22 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     speedWind = weather.wind!.speed;
     outsideTemperature = weather.main!.temp! - 273.15;
   }
+
+  sendCommand({String object = '', var command}) async {
+    var mapCommand = {object: command};
+    await port!.write(Uint8List.fromList(json.encode(mapCommand).codeUnits));
+  }
+
+  getData() {
+    try {
+      port!.inputStream!.listen((Uint8List event) {
+        errors = Utf8Decoder().convert(event);
+        print(errors);
+      });
+    } catch (_) {
+      print('Данные не получены');
+    }
+  }
 }
 
 @freezed
@@ -600,39 +586,38 @@ class DashboardState with _$DashboardState {
   const factory DashboardState.editOdometer() = _EditOdometerDashboardState;
 
   const factory DashboardState.viewWeather({
-    final String name,
-    final double temp,
-    final int pressure,
-    final double speedWind,
-    final int humidity,
+    final String? name,
+    final double? temp,
+    final int? pressure,
+    final double? speedWind,
+    final int? humidity,
   }) = _ViewWeatherDashboardState;
 
   const factory DashboardState.viewDevices({
     final List<UsbDevice>? devices,
+    final String? errors,
   }) = _ViewDevicesDashboardState;
 
   const factory DashboardState.data({
-    final double voltage,
-    final double outsideTemperature,
-    final double temperatureInCar,
-    final int fuelLevel,
-    final bool isPowerEngine,
-    final bool isEmergencySignal,
-    final List<int> code,
-    final int turnoverEngine,
-    final double fuelConsumption,
-    final bool isOpenDoors,
-    final bool isOpenTrunk,
-    final bool isOnOffLowBeam,
-    final bool isOnOffHighBeam,
-    final double temperatureEngine,
-    final int totalValueOdometer,
-    final int partValueOdometer,
-    final int speed,
+    final double? voltage,
+    final double? outsideTemperature,
+    final double? temperatureInCar,
+    final int? fuelLevel,
+    final bool? isPowerEngine,
+    final bool? isEmergencySignal,
+    final String? errors,
+    final int? turnoverEngine,
+    final double? fuelConsumption,
+    final bool? isOpenDoors,
+    final bool? isOpenTrunk,
+    final bool? isOnOffLowBeam,
+    final bool? isOnOffHighBeam,
+    final double? temperatureEngine,
+    final String? status,
   }) = _DataDashboardState;
 
   const factory DashboardState.error({
-    final String message,
+    final String? message,
   }) = _ErrorDashboardState;
 
   const factory DashboardState.success({
@@ -657,6 +642,9 @@ class DashboardEvent with _$DashboardEvent {
 
   const factory DashboardEvent.turnOnOffHighBeam() =
       _TurnOnOffHighBeamDashboardEvent;
+
+  const factory DashboardEvent.turnOnOffLowBeam() =
+      _TurnOnOffLowBeamDashboardEvent;
 
   const factory DashboardEvent.turnOnOffLowBeam({
     final List<int> code,

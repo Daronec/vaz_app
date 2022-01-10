@@ -25,17 +25,15 @@ class ItemDataTopPanel extends StatelessWidget {
           SvgPicture.asset(
             icon!,
             color: color,
-            height: 30,
+            height: 36,
           ),
           const SizedBox(
             width: 10,
           ),
           Text(
             data!,
-            style: Theme.of(context)
-                .textTheme
-                .headline4!
-                .copyWith(color: color),
+            style:
+                Theme.of(context).textTheme.headline4!.copyWith(color: color),
           ),
         ],
       ),

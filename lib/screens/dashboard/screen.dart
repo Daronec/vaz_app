@@ -28,7 +28,10 @@ class DashboardScreen extends StatelessWidget {
                   state.maybeMap(
                     viewDevices: (_devices) => mainShowDialog(
                       context,
-                      DevicesDialog(devices: _devices.devices!),
+                      DevicesDialog(
+                        devices: _devices.devices!,
+                        errors: _devices.errors!,
+                      ),
                     ),
                     viewWeather: (_weather) => mainShowDialog(
                       context,
@@ -62,7 +65,7 @@ class DashboardScreen extends StatelessWidget {
                       fuelLevel: _data.fuelLevel!,
                       isPowerEngine: _data.isPowerEngine!,
                       isEmergencySignal: _data.isEmergencySignal!,
-                      code: _data.code!,
+                      errors: _data.errors!,
                       turnoverEngine: _data.turnoverEngine!,
                       fuelConsumption: _data.fuelConsumption!,
                       isOpenDoors: _data.isOpenDoors!,
@@ -70,9 +73,7 @@ class DashboardScreen extends StatelessWidget {
                       isOnOffLowBeam: _data.isOnOffLowBeam!,
                       isOnOffHighBeam: _data.isOnOffHighBeam!,
                       temperatureEngine: _data.temperatureEngine!,
-                      partValueOdometer: _data.partValueOdometer!,
-                      totalValueOdometer: _data.totalValueOdometer!,
-                      speed: _data.speed!,
+                      status: _data.status!,
                     ),
                     orElse: () => SizedBox.shrink(),
                   );

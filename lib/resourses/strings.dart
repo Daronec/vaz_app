@@ -1,3 +1,3 @@
 class S {
-  static const push_start = 'PUSH\ START';
+  static const push_start = 'PUSH START';
 }

@@ -20,7 +20,7 @@ class FuelLevel extends StatelessWidget {
         SvgPicture.asset(
           MainIcons.fuel,
           color: getColors(level!),
-          height: 30,
+          height: 36,
         ),
         const SizedBox(
           width: 10,

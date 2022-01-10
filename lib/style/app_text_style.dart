@@ -5,6 +5,7 @@ class AppTextStyles {
   static final subTitle = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 14,
+    color: Colors.black,
   );
 
   static final header = TextStyle(

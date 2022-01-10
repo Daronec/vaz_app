@@ -63,30 +63,10 @@ class _EmergencyButtonState extends State<EmergencyButton>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (BuildContext? context, Widget? child) {
-        return Container(
-          height: 64,
-          width: 64,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              width: 3,
-              color: AppColors.dark_grey,
-              style: BorderStyle.solid,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.dark_grey,
-                offset: Offset(0.0, 0.0),
-                blurRadius: 4.0,
-              ),
-            ],
-            color: Colors.black54,
-          ),
+      builder: (BuildContext context, Widget? child) {
+        return Expanded(
           child: Container(
-            height: 50,
-            width: 50,
+            height: (MediaQuery.of(context).size.height - 88) / 2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               boxShadow: [
@@ -117,9 +97,9 @@ class _EmergencyButtonState extends State<EmergencyButton>
               highlightColor: Colors.transparent,
               icon: SvgPicture.asset(
                 MainIcons.hazard,
-                height: 40,
-                width: 40,
-                color: widget.on ? animation.value : AppColors.dark_grey,
+                height: 56,
+                width: 56,
+                color: widget.on ? animation.value : AppColors.light_grey,
               ),
             ),
           ),

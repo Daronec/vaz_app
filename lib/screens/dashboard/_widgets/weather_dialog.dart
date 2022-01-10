@@ -33,7 +33,10 @@ class WeatherDialog extends StatelessWidget {
             children: [
               Text(
                 name!,
-                style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.w500),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(fontWeight: FontWeight.w500),
               ),
               IconButton(
                 onPressed: () => Navigator.of(context).pop(),
